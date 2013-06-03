@@ -7,10 +7,7 @@ require 'listen'
 
 desc "Run server"
 task :serverup do
-  ENV['MONGODB_URI'] = 'mongodb://localhost'
-  ENV['SENDGRID_USERNAME'] = "not_valid_user"
-  ENV['SENDGRID_PASSWORD'] =  "not_valid_pass"
-
+  
   #listen and rebuild javascript file
   system "./build_tools/create_one_js.sh"
   listener = Listen.to('web/public/js').ignore(%r{app.js})
@@ -34,9 +31,8 @@ namespace :test do
 	end
 
 	desc "Run domain tests"
-  ENV['MONGODB_URI'] = 'mongodb://localhost/zizerones_dev'
 	RSpec::Core::RakeTask.new(:domain) do |t|
-      t.pattern = FileList['*/test/domain/*.rb', 'shared/test/*.rb']
+      t.pattern = FileList['*/test/domain/*.rb']
 	    t.rspec_opts = " -c"
 	end
 

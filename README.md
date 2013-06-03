@@ -3,8 +3,7 @@ System Dependencies
   - ruby 1.9.3
   - rvm (optional)
   - bundler gem
-  - mongodb 2.x
-
+  
 
 Running the application
 -----------------------

@@ -3,11 +3,7 @@ gem "sinatra"
 gem "sinatra-contrib"
 gem "json"
 gem "rake"
-gem "mongo"
-gem "bson"
-gem "bson_ext"
-gem "mail"
-gem 'cloudinary'
+
 
 #bundle install --without test development
 group :test do
