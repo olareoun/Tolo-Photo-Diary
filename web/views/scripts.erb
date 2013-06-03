@@ -1,0 +1,26 @@
+<script src="js/vendor/jquery-1.8.2.min.js"></script>
+<script src="js/vendor/pickadate.min.js"></script>
+<script src="js/vendor/underscore-min.js"></script>
+<script src="js/vendor/cuore-1.1-min.js"></script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/vendor/bootstrap-typeahead.js"></script>
+<script src="js/vendor/chosen.jquery.min.js"></script>
+<script src="js/vendor/jquery.fineuploader-3.1.1.min.js"></script>
+<script src="js/vendor/masks.js"></script>
+
+<script type="text/javascript" src="js/app.js"></script>
+<%  
+    file_name = 'index'
+    if ( request.path_info != '/' )
+      file_name = request.path_info.match(/\/(.*).html/)[1]
+       
+    end
+  %>
+<script type="text/javascript" src="js/<%= file_name %>.js"></script>
+
+<script>
+  var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>

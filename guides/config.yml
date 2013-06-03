@@ -1,0 +1,6 @@
+development:
+  dbname: zizerones_dev
+  admin_username: zizerones@gmail.com
+production:
+  dbname: heroku_app8917974
+  admin_username: zizerones@gmail.com

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%= erb :header %>
+<body>
+
+  <%= erb :menu %>
+  <div class="container" style="margin-top:120px">
+    <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+    <%= yield %>
+  </div>
+  <%= erb :scripts %>
+  <%= erb :footer %>
+</body>
+</html>

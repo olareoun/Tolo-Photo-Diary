@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>ZIZERONES | Guides & Routes made social</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/pickadate.css" rel="stylesheet">
+    <link href="css/chosen.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-57-precomposed.png">
+
+  </head>
+
+<body id="groupprofile-page">
+  <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="index.html">Zizerones</a>
+        <ul class="nav">
+          <li id="addGroup"><a href="addgroup.html" >AddGroup</a></li>
+          <li id="register"><a href="registration.html" >Registration</a></li>
+          <li id="login"></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="modal-login">
+      <div class="modal-body">
+        <button type="button" id="modal-close" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <div id="modal-feedback" class="alert hidden">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+        </div>
+        <span id="modal-login-field"></span>
+        <span id="modal-password-field"></span>
+        <span>
+          <button type="button" id="modal-button" class="btn btn-primary"></button>
+        </span>
+      </div>
+    </div>
+
+
+     <div class="row card-wrapper span9">
+    <div id="card"></div>
+
+
+    <div class="row">
+        <div id="date" class="span3"></div>
+        <div id="name" class="span6"></div>
+    </div>
+
+    <div class="row">
+      <span id="image" class="span9"></span>
+    </div>
+
+    <div class="row">
+      <span id="description" class="span9"></span>
+    </div>
+
+    <div class="row">
+      <div id="city" class="span5"></div>
+    </div>
+
+    <hr/>
+
+    <div id="languages"></div>
+
+    <hr/>
+
+    <div class="row">
+      <span id="minimum-quorum" class="span4"></span>
+      <span id="maximum-quorum" class="span4"></span>
+    </div>
+
+    <div class="row">
+      <span id="time" class="span4"></span>
+      <span id="duration" class="span4"></span>
+    </div>
+
+    <div class="row">
+      <span id="separation-days" class="span9"></span>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+      <ul id="emblems-filter" class="span9"></ul>
+    </div>
+
+    <div class="row">
+      <span id="price" class="span6"></span>
+    </div>
+
+    <hr/>
+
+    
+
+    </div>
+  </div>
+  </div> <!-- /container -->
+<!--
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.7.2.min.js"><\/script>')</script>
+-->
+  <script src="js/vendor/jquery-1.8.2.min.js"></script>
+  <script src="js/vendor/pickadate.min.js"></script>
+  <script src="js/vendor/cuore-1.1-min.js"></script>
+  <script src="js/vendor/bootstrap.min.js"></script>
+  <script src="js/vendor/underscore-min.js"></script>
+  <script src="js/vendor/chosen.jquery.min.js"></script>
+  <script src="js/vendor/jquery.price_format.min.js"></script>
+  <script src="js/vendor/masks.js"></script>
+
+  <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/groupProfile.js"></script>
+
+  <script>
+    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+  </script>
+</body>
+</html>
+
+
