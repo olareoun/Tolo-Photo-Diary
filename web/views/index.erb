@@ -1,17 +1,8 @@
-      <div id="myModal" class="modal hide fade">
-    <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>Export from Json</h3>
-    </div>
-    <div class="modal-body">
-    <form method='POST' action='/generate' name='json_form' id='json_form'>
-      <textarea name='json_field'>
-      </textarea>
-    </form>
-    </div>
-    <div class="modal-footer">
-      <button type='submit' id="submit" class="btn" onClick="$('#json_form').submit();">submit</button>
-    </div>
-    </div>
-
-
+<form method='POST' action='/generate' name='json_form' id='json_form'>
+  <fieldset>
+    <legend>Export from Json</legend>
+    <label>Json</label>
+    <textarea placeholder="Insert json" name='json_field' cols="100" rows="5" ></textarea>
+    <button type='submit' id="submit" class="btn">submit</button>
+  </fieldset>
+</form>
