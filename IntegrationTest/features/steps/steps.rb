@@ -9,5 +9,5 @@ When /^I send it to the notes2reveal$/ do
 end
 
 Then /^I got a reveal presentation$/ do
-	current_path.should == 'http://blabla'
+	current_path.should == '/generate'
 end

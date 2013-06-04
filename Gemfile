@@ -7,6 +7,7 @@ gem "rake"
 
 #bundle install --without test development
 group :test do
+	gem "selenium-webdriver"
   gem "rack-test"
   gem "rspec"
   gem "cucumber"
