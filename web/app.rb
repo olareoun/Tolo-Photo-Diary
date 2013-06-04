@@ -14,7 +14,8 @@ class Web < Sinatra::Base
   end
 
   post '/generate' do
-    redirect('/presentation/index.html')
+    @slides = JSON.parse(params['json_field'])
+    erb :presentation , :layout => :reveal_js
   end
 
 end

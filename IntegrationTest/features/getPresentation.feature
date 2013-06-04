@@ -7,9 +7,4 @@ Feature: Get reveal presentation
 Scenario:
 	Given I got a json with notes
     When I send it to the notes2reveal
-    Then I go to the presentation
-
-Scenario:
-	Given I got a json with notes
-    When I send it to the notes2reveal
     Then I got a reveal presentation with my notes
