@@ -3,9 +3,17 @@
   <%= erb :header %>
 <body>
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+	<div>
 
-  <%= yield %>
-  <%= erb :footer %>
+	      <div class="hero-unit">
+	        <h1>Notes2Reveal</h1>
+	        <p class="lead">Easily export Evernote notebooks to reveal.js presentations!!</p>
+	        <a href="#myModal" role="button" class="btn btn-large btn-success" data-toggle="modal">Get started</a>
+	      </div>
+
+	  <%= yield %>
+	  <%= erb :footer %>
+  </div>
 </body>
 
 
