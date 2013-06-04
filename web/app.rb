@@ -14,7 +14,7 @@ class Web < Sinatra::Base
   end
 
   post '/generate' do
-
+    redirect('/presentation/index.html')
   end
 
 end
