@@ -1,6 +1,9 @@
 require 'sinatra/base'
 require 'json'
 
+require_relative '../slides/lib/slide'
+require_relative '../slides/lib/slides_domain'
+
 class Web < Sinatra::Base
   set :public_folder, './web/public'
   set :static, true
@@ -14,7 +17,7 @@ class Web < Sinatra::Base
   end
 
   post '/generate' do
-    @slides = JSON.parse(params['json_field'])
+    @slides = Slides::SlidesDomain.create(JSON.parse(params['json_field']))
     erb :presentation , :layout => :reveal_js
   end
 
