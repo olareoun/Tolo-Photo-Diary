@@ -4,10 +4,12 @@ rvm:
   - "1.9.3"
 
 before_script:
-  - bundle exec rake serverup
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+  - rackup  # start a Web server
+  - sleep 3 # give Web server some time to bind to sockets, etc
 
 script: 
-  - rake test:all
+  - bundle exec rake test:all
 
-after_script:
-  - rake serverdown
