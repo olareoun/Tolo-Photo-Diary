@@ -6,6 +6,7 @@ require 'listen'
 
 
 desc "Run server"
+
 task :serverup do
   
   #listen and rebuild javascript file
@@ -15,7 +16,7 @@ task :serverup do
   listener.change(&callback) # convert the callback to a block and register it
   listener.start(false)
 
-  system "rackup -p 3000"
+  system "rackup -p 3000 &"
 end
 
 task :serverdown do
@@ -33,16 +34,12 @@ namespace :test do
 	desc "Run domain tests"
 	RSpec::Core::RakeTask.new(:domain) do |t|
       t.pattern = FileList['*/test/domain/*.rb']
-	    t.rspec_opts = " -c"
+	    t.rspec_opts = " -c --format documentation"
 	end
 
 	desc "Run all tests"
 	task :all do
-		Rake::Task['jslint'].execute
     Rake::Task['test:domain'].execute
-		Rake::Task['test:routes'].execute
-    Rake::Task['test:jasmine'].execute
-    Rake::Task['test:ux'].execute
 		Rake::Task['test:integration'].execute
 	end
 

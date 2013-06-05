@@ -11,3 +11,5 @@ before_script:
 script: 
   - bundle exec rake test:all
 
+after_script:
+  - "bundle exec rake serverdown"
