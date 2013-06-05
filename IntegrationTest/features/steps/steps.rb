@@ -11,7 +11,7 @@ end
 Then(/^I got a reveal presentation with my notes$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
-  page.find("div.slides section", :count => 3).should be_true
+  page.all("div.slides section", :visible => false).length.should == 3
   page.first("div.slides section h1").text.should == 'a title'.upcase
   page.first("div.slides section p").text.should == 'some content'
 end
