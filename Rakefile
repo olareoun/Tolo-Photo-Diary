@@ -27,8 +27,8 @@ namespace :test do
 
 	desc "Run routes tests"
 	RSpec::Core::RakeTask.new(:routes) do |t|
-	    t.pattern = "*/test/routes/*.rb"
-	    t.rspec_opts = " -c"
+	    t.pattern = "test/routes/*.rb"
+	    t.rspec_opts = " -c --format documentation"
 	end
 
 	desc "Run domain tests"

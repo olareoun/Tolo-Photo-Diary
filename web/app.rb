@@ -17,7 +17,9 @@ class Web < Sinatra::Base
   end
 
   post '/generate' do
-    @slides = Slides::SlidesDomain.create(JSON.parse(params['json_field']))
+    param_json = params['json_field']
+    redirect '/' if param_json.empty?
+    @slides = Slides::SlidesDomain.create(JSON.parse(param_json))
     erb :presentation , :layout => :reveal_js
   end
 
