@@ -24,6 +24,12 @@ Scenario:
     And I see an alert message "We can not do a presentation with an empty notes collection."
 
 Scenario:
+	Given I got a bad formed json
+    When I send it to the notes2reveal
+    Then I get back to the form
+    And I see an alert message "We can not do a presentation with a bad formed json."
+
+Scenario:
 	Given I got a json with notes
     When I send it to the notes2reveal
     Then I got a reveal presentation with my notes

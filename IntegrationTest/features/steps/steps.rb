@@ -14,6 +14,10 @@ Given(/^I got an empty json collection$/) do
   @the_json = '[]'
 end
 
+Given(/^I got a bad formed json$/) do
+  @the_json = '{{"title": "my title", "body": "my body"}{}}}'
+end
+
 When /^I send it to the notes2reveal$/ do
   fill_in('json_field', :with => @the_json)
   find('#submit').click

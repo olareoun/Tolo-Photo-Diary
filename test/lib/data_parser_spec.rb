@@ -7,8 +7,13 @@ describe 'Data Parser' do
 	it 'raises ArgumentException empty.json when empty json' do
 		expect{DataParser.parse('')}.to raise_error(ArgumentException)
 	end
+
 	it 'raises ArgumentException empty.json.collection when empty json collection' do
 		expect{DataParser.parse('[]')}.to raise_error(ArgumentException)
+	end
+
+	it 'raises ArgumentException bad.formed.json when bad formed json' do
+		expect{DataParser.parse('{{"title": "my title", "body": "my body"}{}}}')}.to raise_error(ArgumentException)
 	end
 
 	it 'returns parsed json' do

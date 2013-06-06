@@ -31,6 +31,14 @@ describe "Notes2Reveal Routes" do
       last_request.path_info.should == '/'
       last_request.query_string.should == 'alert_signal=empty.json.collection'
     end
+
+    it "goes to / when bad formed json collection" do
+      post "/generate", "json_field" => '{{"title": "my title", "body": "my body"}{}}}'
+      last_response.should be_redirect
+      follow_redirect!
+      last_request.path_info.should == '/'
+      last_request.query_string.should == 'alert_signal=bad.formed.json'
+    end
   end
 
 end
