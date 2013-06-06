@@ -10,6 +10,10 @@ Given(/^I got an empty json$/) do
   @the_json = ''
 end
 
+Given(/^I got an empty json collection$/) do
+  @the_json = '[]'
+end
+
 When /^I send it to the notes2reveal$/ do
   fill_in('json_field', :with => @the_json)
   find('#submit').click
@@ -27,9 +31,9 @@ Then(/^I get back to the form$/) do
   page.current_path.should eq '/'
 end
 
-Then(/^I see an alert message$/) do
+Then(/^I see an alert message "(.*?)"$/) do |alert_message|
   page.has_css?("div.alert").should be_true
-  page.find("div.alert").should have_content('We can not do a presentation with empty data.')
+  page.find("div.alert").should have_content(alert_message)
 end
 
 When(/^I look for an alert$/) do
@@ -38,3 +42,4 @@ end
 Then(/^I can not see any alert$/) do
   page.has_css?("div.alert").should be_false
 end
+

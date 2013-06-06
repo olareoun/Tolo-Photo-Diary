@@ -15,7 +15,13 @@ Scenario:
 	Given I got an empty json
     When I send it to the notes2reveal
     Then I get back to the form
-    And I see an alert message
+    And I see an alert message "We can not do a presentation with empty data."
+
+Scenario:
+	Given I got an empty json collection
+    When I send it to the notes2reveal
+    Then I get back to the form
+    And I see an alert message "We can not do a presentation with an empty notes collection."
 
 Scenario:
 	Given I got a json with notes

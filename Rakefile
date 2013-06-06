@@ -31,6 +31,12 @@ namespace :test do
 	    t.rspec_opts = " -c --format documentation"
 	end
 
+  desc "Run lib tests"
+  RSpec::Core::RakeTask.new(:lib) do |t|
+      t.pattern = "test/lib/*.rb"
+      t.rspec_opts = " -c --format documentation"
+  end
+
 	desc "Run domain tests"
 	RSpec::Core::RakeTask.new(:domain) do |t|
       t.pattern = FileList['*/test/domain/*.rb']
@@ -41,6 +47,7 @@ namespace :test do
 	task :all do
     Rake::Task['test:domain'].execute
     Rake::Task['test:routes'].execute
+    Rake::Task['test:lib'].execute
 		Rake::Task['test:integration'].execute
 	end
 
