@@ -29,4 +29,12 @@ end
 
 Then(/^I see an alert message$/) do
   page.has_css?("div.alert").should be_true
+  page.find("div.alert").should have_content('We can not do a presentation with empty data.')
+end
+
+When(/^I look for an alert$/) do
+end
+
+Then(/^I can not see any alert$/) do
+  page.has_css?("div.alert").should be_false
 end

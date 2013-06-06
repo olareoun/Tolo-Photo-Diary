@@ -1,3 +1,9 @@
+<% if !@message.empty? %>
+	<div class="alert">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong><%= @message %></strong>
+	</div>
+<% end %>
 <form method='POST' action='/generate' name='json_form' id='json_form'>
   <fieldset>
     <legend>Export from Json</legend>

@@ -20,6 +20,7 @@ describe "Notes2Reveal Routes" do
       last_response.should be_redirect
       follow_redirect!
       last_request.path_info.should == '/'
+      last_request.query_string.should == 'alert_signal=empty.json'
     end
   end
 
