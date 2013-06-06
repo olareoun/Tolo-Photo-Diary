@@ -33,7 +33,7 @@ function minimizejs {
 
 
 
-echo "creating brach and deploying to zizerones_dev"
+echo "creating brach and deploying to notebook2reveal"
 git checkout master
 git pull origin master
 git branch -D deploy
@@ -41,9 +41,8 @@ git checkout -b deploy
 minimizejs
 git add -f web/public/js/app.js
 git rm -r web/public/js/test
-git rm -r web/public/js/ZZ
 git commit -m "minified"
-git push -f zizerones_dev deploy:master
+git push -f heroku deploy:master
 git reset --hard
 git checkout master
 git branch -D deploy
