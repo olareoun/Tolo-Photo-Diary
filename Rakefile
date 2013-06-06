@@ -40,6 +40,7 @@ namespace :test do
 	desc "Run all tests"
 	task :all do
     Rake::Task['test:domain'].execute
+    Rake::Task['test:routes'].execute
 		Rake::Task['test:integration'].execute
 	end
 
