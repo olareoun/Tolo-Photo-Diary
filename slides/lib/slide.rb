@@ -30,5 +30,9 @@ module Slides
 			html
 		end
 
+		def empty?
+			to_s.empty?
+		end
+
 	end
 end
