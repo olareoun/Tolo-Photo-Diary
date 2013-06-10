@@ -4,7 +4,7 @@ require 'json'
 require_relative '../slides/lib/slide'
 require_relative '../slides/lib/slides_domain'
 require_relative 'lib/notifier'
-require_relative 'lib/data_parser'
+require_relative 'lib/marshaller'
 
 class Web < Sinatra::Base
   set :public_folder, './web/public'
@@ -21,7 +21,8 @@ class Web < Sinatra::Base
 
   post '/generate' do
     begin
-      the_json = DataParser.parse(params['json_field'])
+      Marshaller.check(params['json_field'])
+      the_json = Marshaller.unmarshall(params['json_field']);
       @slides = Slides::SlidesDomain.create(the_json)
       erb :presentation , :layout => :reveal_js
     rescue ArgumentException => e
