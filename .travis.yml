@@ -1,20 +1,19 @@
-rvm: 
-  - 1.9.3
-language: 
-  - ruby
-env: 
-global: 
-- secure: "KFJ1fcMotPZ/IOhUMkpOu2p1Rf+yNZfR9XVC8gmDR5/xf8LsenLE5k9io3x2\n60xISaGPkGJJhUvo6oEXOJ0jSSww/qkB9uUMPqil4CWXterhpekFbPZjTnXs\nkRBn5tLXFeUcX93KIKYMr3azcw4pvqXyt4aI76O00E7gMJFwAdg="
-
+--- 
+after_script: 
+- bundle exec rake serverdown
 before_script: 
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 - bundle exec rake serverup
-script: 
-- bundle exec rake test:all
-after_script: 
-- bundle exec rake serverdown
-after_success:
+env: 
+  global: 
+    secure: |-
+      SrsRwWymmarHICLXh1u6hl0DYggSihSxbTry/eKUAphuYVkcFxWe94rRKwQv
+      4KBlAsPz7A1Ve4tdq2Pyb94ko3Fyyo/aSaqB/L5ZhL45mstVPSINy4bonaao
+      /PkZy2NeAR2cp1xTL367wkTVP6ZkabpiPG6UMun88qGB0bHdFdw=
+rvm: 
+- 1.9.3
+after_success: 
 - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 - git remote add heroku git@heroku.com:notebook2reveal.git
 - echo "Host heroku.com" >> ~/.ssh/config
@@ -24,3 +23,7 @@ after_success:
 - heroku keys:clear
 - yes | heroku keys:add
 - yes | git push heroku master
+script: 
+- bundle exec rake test:all
+language: 
+- ruby
