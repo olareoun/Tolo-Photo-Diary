@@ -7,8 +7,8 @@ class Notifier
 	}
 
 	def self.message_for(alert_signal)
-	    message = ''
-	    message = Messages[alert_signal] unless Messages[alert_signal].nil?
+	    message = Messages[alert_signal]
+		message = '' if message.nil?
 		message
 	end
 end
