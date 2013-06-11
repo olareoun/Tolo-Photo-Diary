@@ -2,7 +2,6 @@ require 'rspec'
 require 'json'
 
 require_relative '../../lib/slides_domain'
-require_relative '../../lib/slide'
 
 describe 'Slides Domain' do
 

@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'json'
 
 require_relative '../slides/lib/slide'
+require_relative '../slides/lib/slides'
 require_relative '../slides/lib/slides_domain'
 require_relative 'lib/notifier'
 require_relative 'lib/marshaller'

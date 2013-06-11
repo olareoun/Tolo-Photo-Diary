@@ -3,6 +3,13 @@ require_relative '../../lib/slide'
 
 describe 'Slide' do
 
+	it 'has content'  do
+		slide = Slides::Slide.new
+		slide.entitle('title')
+		slide.putContent('content')
+		slide.has('title', 'content').should be_true
+	end
+
 	describe 'expressing as string' do
 		it 'when complete' do
 			slide = Slides::Slide.new
