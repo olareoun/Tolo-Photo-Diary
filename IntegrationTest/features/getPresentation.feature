@@ -33,3 +33,8 @@ Scenario:
 	Given I got a json with notes
     When I send it to the notes2reveal
     Then I got a reveal presentation with my notes
+
+Scenario:
+    Given I got a json with notes some of the with no standard data
+    When I send it to the notes2reveal
+    Then I got a reveal presentation with no empty notes

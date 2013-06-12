@@ -18,6 +18,10 @@ Given(/^I got a bad formed json$/) do
   @the_json = '{{"title": "my title", "body": "my body"}{}}}'
 end
 
+Given(/^I got a json with notes some of the with no standard data$/) do
+  @the_json = '[{"title": "a title", "body": "some content"}, {"bla": "another title", "ble": "more content"}, {"title": "one more title", "body": "yet more content"}]'
+end
+
 When /^I send it to the notes2reveal$/ do
   fill_in('json_field', :with => @the_json)
   find('#submit').click
@@ -47,3 +51,12 @@ Then(/^I can not see any alert$/) do
   page.has_css?("div.alert").should be_false
 end
 
+Then(/^I got a reveal presentation with no empty notes$/) do
+  page.has_css?("div.reveal").should be_true
+  page.has_css?("div.slides").should be_true
+  page.all("div.slides section", :visible => false).length.should == 2
+  page.all("div.slides section", :visible => false).each do |section|
+    puts section.text
+    puts section.text.empty?
+  end
+end
