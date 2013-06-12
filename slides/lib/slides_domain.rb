@@ -5,7 +5,7 @@ module Slides
       data.each do |item|
         slides.add_with(item['title'], item['body'])
       end
-      slides.not_empty
+      slides
     end
   end
 end

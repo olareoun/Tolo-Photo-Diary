@@ -10,22 +10,23 @@ module Slides
 		end
 
 		def add_with(title, content)
+			return if not_valid(title) && not_valid(content)
 			slide = Slide.new
 	        slide.entitle(title)
 	        slide.putContent(content)
 	        @slides << slide
 		end
 
-		def contains(slide)
-			!@slides.find_all{|item| item.has(slide.title, slide.content)}.empty?
+		def length
+			@slides.length
 		end
 
-	    def not_empty
- 		    @slides.find_all{|item| !item.empty?}
-	    end
+		def not_valid(str)
+			str.nil? || str.empty?
+		end
 
-	    def to_a
-	    	@slides
+	    def to_html
+	    	@slides.map{|slide| slide.to_html}.join
 	    end
 	end
 end

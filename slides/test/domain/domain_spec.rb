@@ -17,19 +17,23 @@ describe 'Slides Domain' do
   end
 
   it 'creates each slide' do
-    @slides[0].to_s.should == 'a title - some content'
-    @slides[1].to_s.should == 'another title - more content'
-    @slides[2].to_s.should == 'one more title - yet more content'
+    @slides.to_html.should match('a title')
+    @slides.to_html.should match('some content')
+    @slides.to_html.should match('another title')
+    @slides.to_html.should match('more content')
+    @slides.to_html.should match('one more title')
+    @slides.to_html.should match('yet more content')
   end
 
   describe 'does not create empty slides' do
     it 'when no proper slide data' do
       the_json = '[{"title": "a title", "body": "some content"}, {"bla": "another title", "ble": "more content"}, {"title": "one more title", "body": "yet more content"}]'
       parsed_data = JSON.parse(the_json)
+      @slides.to_html.should match('a title')
       @slides = Slides::SlidesDomain.create(parsed_data)
-      @slides.length.should == 2
-      @slides[0].to_s.should == 'a title - some content'
-      @slides[1].to_s.should == 'one more title - yet more content'
+      @slides.to_html.should match('some content')
+      @slides.to_html.should match('one more title')
+      @slides.to_html.should match('yet more content')
     end
   end
 

@@ -55,8 +55,4 @@ Then(/^I got a reveal presentation with no empty notes$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
   page.all("div.slides section", :visible => false).length.should == 2
-  page.all("div.slides section", :visible => false).each do |section|
-    puts section.text
-    puts section.text.empty?
-  end
 end
