@@ -7,5 +7,12 @@ module Slides
       end
       slides
     end
+    def self.create_with_notes(data)
+      slides = Slides.new
+      data.each do |note|
+        slides.add_with(note.title, note.content)
+      end
+      slides
+    end
   end
 end
