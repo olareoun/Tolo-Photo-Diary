@@ -3,7 +3,7 @@ Given /^I am in notes2reveal$/ do
 end
 
 Given /^I got a json with notes$/ do
-  @the_json = '[{"title": "a title", "body": "some content"}, {"title": "another title", "body": "more content"}, {"title": "one more title", "body": "yet more content"}]'
+  @the_json = '[{"title": "a title", "content": "some content"}, {"title": "another title", "content": "more content"}, {"title": "one more title", "content": "yet more content"}]'
 end
 
 Given(/^I got an empty json$/) do
@@ -15,11 +15,11 @@ Given(/^I got an empty json collection$/) do
 end
 
 Given(/^I got a bad formed json$/) do
-  @the_json = '{{"title": "my title", "body": "my body"}{}}}'
+  @the_json = '{{"title": "my title", "content": "my body"}{}}}'
 end
 
 Given(/^I got a json with notes some of the with no standard data$/) do
-  @the_json = '[{"title": "a title", "body": "some content"}, {"bla": "another title", "ble": "more content"}, {"title": "one more title", "body": "yet more content"}]'
+  @the_json = '[{"title": "a title", "content": "some content"}, {"bla": "another title", "ble": "more content"}, {"title": "one more title", "content": "yet more content"}]'
 end
 
 When /^I send it to the notes2reveal$/ do

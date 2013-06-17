@@ -1,4 +1,5 @@
 require_relative "./evernote_config"
+require_relative "./note"
 
 class EvernoteHelper
 
@@ -13,7 +14,7 @@ class EvernoteHelper
 	  def self.getNotes(user_info, note_store, notebook_name)
 		notes_metadata = getNotesMetadata(user_info, note_store, notebook_name)
 		notes = notes_metadata.notes.map do |note|
-		 note_store.getNote('', note.guid, true, true, false, false)
+		 Notebooks::Note.new note_store.getNote('', note.guid, true, true, false, false)
 		end
 		notes
 	  end

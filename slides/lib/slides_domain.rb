@@ -3,7 +3,7 @@ module Slides
     def self.create(data)
       slides = Slides.new
       data.each do |note|
-        slides.add_with(note.title, note.content)
+        slides.add_with(note.getTitle(), note.getContent())
       end
       slides
     end

@@ -1,5 +1,5 @@
 require 'json'
-require 'evernote_oauth'
+require_relative '../../notebooks/lib/note'
 require_relative 'bad_argument_exception'
 
 class Marshaller
@@ -12,14 +12,12 @@ class Marshaller
 		begin
 			parsed = JSON.parse(json)
 			notes = parsed.map do |item|
-				note = Evernote::EDAM::Type::Note.new
-				note.title = item['title']
-  				note.content = item['body']
-				note
+				Notebooks::Note.new item
 			end
 			notes
 		rescue
 			raise BadArgumentException, 'bad.formed.json'
 		end
 	end
+
 end

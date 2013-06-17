@@ -1,6 +1,5 @@
 require 'rspec'
 require 'json'
-require "evernote_oauth"
 
 require_relative '../../lib/slides_domain'
 
@@ -39,9 +38,7 @@ describe 'Slides Domain' do
 end
 
 def createNote(title, content)
-  note = Evernote::EDAM::Type::Note.new
-  note.title = title
-  note.content = content
+  note = Notebooks::Note.new({'title' => title, 'content' => content})
   note
 end
 
