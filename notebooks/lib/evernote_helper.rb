@@ -12,7 +12,10 @@ class EvernoteHelper
 
 	  def self.getNotes(user_info, note_store, notebook_name)
 		notes_metadata = getNotesMetadata(user_info, note_store, notebook_name)
-		notes_metadata.notes.collect { |note| note_store.getNote('', note.guid, true, true, false, false) }
+		notes = notes_metadata.notes.map do |note|
+		 note_store.getNote('', note.guid, true, true, false, false)
+		end
+		notes
 	  end
 
 	  def self.getUserInfo(user_name)
