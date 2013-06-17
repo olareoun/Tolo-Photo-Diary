@@ -1,4 +1,5 @@
 require 'json'
+require 'evernote_oauth'
 require_relative 'argument_exception'
 
 class Marshaller
@@ -9,7 +10,14 @@ class Marshaller
 
 	def self.unmarshall(json)
 		begin
-			JSON.parse(json)
+			parsed = JSON.parse(json)
+			notes = parsed.map do |item|
+				note = Evernote::EDAM::Type::Note.new
+				note.title = item['title']
+  				note.content = item['body']
+				note
+			end
+			notes
 		rescue
 			raise ArgumentException, 'bad.formed.json'
 		end

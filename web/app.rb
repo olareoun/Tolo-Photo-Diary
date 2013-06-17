@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'json'
+require 'evernote_oauth'
 
 require_relative '../slides/lib/slide'
 require_relative '../slides/lib/slides'

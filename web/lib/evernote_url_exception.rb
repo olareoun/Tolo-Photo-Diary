@@ -1,2 +1,0 @@
-class EvernoteUrlException < Exception
-end

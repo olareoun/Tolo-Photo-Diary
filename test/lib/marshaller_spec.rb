@@ -17,6 +17,9 @@ describe 'Marshaller' do
 	end
 
 	it 'returns unmarshalled json' do
-		Marshaller.unmarshall('[{"title": "title1", "body": "body1"}]').should_not be_nil
+		notes = Marshaller.unmarshall('[{"title": "title1", "body": "body1"}]')
+		notes.should_not be_nil
+		notes.length.should == 1
+		notes[0].instance_of? Evernote::EDAM::Type::Note
 	end
 end
