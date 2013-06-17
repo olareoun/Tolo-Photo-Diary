@@ -43,6 +43,12 @@ namespace :test do
 	    t.rspec_opts = " -c --format documentation"
 	end
 
+  desc "Run integration rspec tests"
+  RSpec::Core::RakeTask.new(:rspecintegration) do |t|
+      t.pattern = FileList['*/test/integration/*.rb']
+      t.rspec_opts = " -c --format documentation"
+  end
+
 	desc "Run all tests"
 	task :all do
     Rake::Task['test:domain'].execute
@@ -50,6 +56,11 @@ namespace :test do
     Rake::Task['test:lib'].execute
 		Rake::Task['test:integration'].execute
 	end
+
+  task :integration do
+    Rake::Task['test:rspecintegration'].execute
+    Rake::Task['test:cucumberintegration'].execute
+  end
 
 	desc "Run uxtest"
 	Cucumber::Rake::Task.new(:ux) do |t|
@@ -62,14 +73,9 @@ namespace :test do
   end
 
 	desc "Run integrationtest"
-	Cucumber::Rake::Task.new(:integration) do |t|
+	Cucumber::Rake::Task.new(:cucumberintegration) do |t|
   	    t.cucumber_opts = "IntegrationTest"
 	end
-
-  task :integration_pre do
-    ENV['INTEGRATION_URL'] = 'http://zizerones.herokuapp.com'
-    Rake::Task['test:integration'].execute
-  end
 
   desc "Run wip"
   task :wip do
