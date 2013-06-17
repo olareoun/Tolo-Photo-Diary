@@ -27,7 +27,7 @@ class Web < Sinatra::Base
       the_json = Marshaller.unmarshall(params['json_field']);
       @slides = Slides::SlidesDomain.create(the_json)
       erb :presentation , :layout => :reveal_js
-    rescue ArgumentException => e
+    rescue BadArgumentException => e
       redirect '/?alert_signal=' + e.exception_key
     end
   end

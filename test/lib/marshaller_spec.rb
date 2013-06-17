@@ -4,16 +4,16 @@ require 'rack/test'
 require 'rspec'
 
 describe 'Marshaller' do
-	it 'raises ArgumentException empty.json when empty json' do
-		expect{Marshaller.check('')}.to raise_error(ArgumentException)
+	it 'raises BadArgumentException empty.json when empty json' do
+		expect{Marshaller.check('')}.to raise_error(BadArgumentException)
 	end
 
-	it 'raises ArgumentException empty.json.collection when empty json collection' do
-		expect{Marshaller.check('[]')}.to raise_error(ArgumentException)
+	it 'raises BadArgumentException empty.json.collection when empty json collection' do
+		expect{Marshaller.check('[]')}.to raise_error(BadArgumentException)
 	end
 
-	it 'raises ArgumentException bad.formed.json when bad formed json' do
-		expect{Marshaller.check('{{"title": "my title", "body": "my body"}{}}}')}.to raise_error(ArgumentException)
+	it 'raises BadArgumentException bad.formed.json when bad formed json' do
+		expect{Marshaller.check('{{"title": "my title", "body": "my body"}{}}}')}.to raise_error(BadArgumentException)
 	end
 
 	it 'returns unmarshalled json' do

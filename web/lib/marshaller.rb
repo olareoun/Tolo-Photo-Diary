@@ -1,11 +1,11 @@
 require 'json'
 require 'evernote_oauth'
-require_relative 'argument_exception'
+require_relative 'bad_argument_exception'
 
 class Marshaller
 	def self.check(data)
-	    raise ArgumentException, 'empty.json' if data.empty?
-	    raise ArgumentException, 'empty.json.collection' if unmarshall(data).empty?
+	    raise BadArgumentException, 'empty.json' if data.empty?
+	    raise BadArgumentException, 'empty.json.collection' if unmarshall(data).empty?
 	end
 
 	def self.unmarshall(json)
@@ -19,7 +19,7 @@ class Marshaller
 			end
 			notes
 		rescue
-			raise ArgumentException, 'bad.formed.json'
+			raise BadArgumentException, 'bad.formed.json'
 		end
 	end
 end
