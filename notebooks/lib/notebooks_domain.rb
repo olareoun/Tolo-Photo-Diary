@@ -1,3 +1,6 @@
+require_relative 'evernote_helper'
+require_relative 'notebook'
+
 module Notebooks
 	class NotebooksDomain
 		def self.get(user_name, notebook_name)

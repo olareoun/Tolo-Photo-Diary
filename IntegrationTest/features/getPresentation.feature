@@ -1,4 +1,3 @@
-@wip
 Feature: Get reveal presentation
     As  user of evernote
     I   want to get a reveal prentation with my notes

@@ -17,7 +17,7 @@ describe "Notes2Reveal Routes" do
   describe "/generate" do
 
     it "goes to / when empty json" do
-      post "/generate", "json_field" => ""
+      post "/generate", "json_field" => "", "publicUrl" => ""
       last_response.should be_redirect
       follow_redirect!
       last_request.path_info.should == '/'
@@ -25,7 +25,7 @@ describe "Notes2Reveal Routes" do
     end
 
     it "goes to / when empty json collection" do
-      post "/generate", "json_field" => "[]"
+      post "/generate", "json_field" => "[]", "publicUrl" => ""
       last_response.should be_redirect
       follow_redirect!
       last_request.path_info.should == '/'
@@ -33,12 +33,13 @@ describe "Notes2Reveal Routes" do
     end
 
     it "goes to / when bad formed json collection" do
-      post "/generate", "json_field" => '{{"title": "my title", "body": "my body"}{}}}'
+      post "/generate", "json_field" => '{{"title": "my title", "body": "my body"}{}}}', "publicUrl" => ""
       last_response.should be_redirect
       follow_redirect!
       last_request.path_info.should == '/'
       last_request.query_string.should == 'alert_signal=bad.formed.json'
     end
+
   end
 
 end
