@@ -8,7 +8,7 @@ describe 'Notebooks Domain' do
 	it 'obtains an existent public notebook' do
 		notebook = Notebooks::NotebooksDomain.get('olareoun', 'mipublicnotebook')
 		notebook.nil?.should be_false
-		notebook.name.should == 'mipublicnotebook'
-		notebook.notes.length.should == 2
+		notebook.getName().should == 'mipublicnotebook'
+		notebook.getNotes().length.should == 2
 	end
 end

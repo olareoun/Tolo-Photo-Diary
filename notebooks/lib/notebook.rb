@@ -10,5 +10,9 @@ module Notebooks
 		def getNotes
 			@notes
 		end
+
+		def getName
+			@name
+		end
 	end
 end
