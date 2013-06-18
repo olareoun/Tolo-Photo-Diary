@@ -38,7 +38,9 @@ describe 'Slides Domain' do
 end
 
 def createNote(title, content)
-  note = Notebooks::Note.new({'title' => title, 'content' => content})
+  note = Notebooks::Note.new
+  note.entitle(title)
+  note.putContent(content)
   note
 end
 

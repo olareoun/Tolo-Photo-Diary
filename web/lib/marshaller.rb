@@ -9,12 +9,20 @@ class Marshaller
 	end
 
 	def self.unmarshall(json)
+		parsed = parse(json)
+		notes = parsed.map do |item|
+			note = Notebooks::Note.new
+			note.entitle(item['title'])
+			note.putContent(item['content'])
+			note
+		end
+		notes
+	end
+
+	def self.parse(json)
 		begin
 			parsed = JSON.parse(json)
-			notes = parsed.map do |item|
-				Notebooks::Note.new item
-			end
-			notes
+			parsed
 		rescue
 			raise BadArgumentException, 'bad.formed.json'
 		end

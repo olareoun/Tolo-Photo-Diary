@@ -39,7 +39,7 @@ namespace :test do
 
 	desc "Run domain tests"
 	RSpec::Core::RakeTask.new(:domain) do |t|
-      t.pattern = FileList['*/test/domain/*.rb', 'test/lib/*.rb']
+      t.pattern = FileList['test/lib/*.rb', '*/test/domain/*.rb']
 	    t.rspec_opts = " -c --format documentation"
 	end
 

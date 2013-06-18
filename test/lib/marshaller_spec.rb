@@ -13,13 +13,15 @@ describe 'Marshaller' do
 	end
 
 	it 'raises BadArgumentException bad.formed.json when bad formed json' do
-		expect{Marshaller.check('{{"title": "my title", "body": "my body"}{}}}')}.to raise_error(BadArgumentException)
+		expect{Marshaller.check('{{"title": "my title", "content": "my body"}{}}}')}.to raise_error(BadArgumentException)
 	end
 
 	it 'returns unmarshalled json' do
-		notes = Marshaller.unmarshall('[{"title": "title1", "body": "body1"}]')
+		notes = Marshaller.unmarshall('[{"title": "title1", "content": "body1"}]')
 		notes.should_not be_nil
 		notes.length.should == 1
-		notes[0].instance_of? Evernote::EDAM::Type::Note
+		(notes[0].instance_of? Notebooks::Note).should be_true
+		notes[0].getTitle().should == 'title1'
+		notes[0].getContent().should == 'body1'
 	end
 end
