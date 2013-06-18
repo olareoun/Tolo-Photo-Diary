@@ -6,14 +6,16 @@ describe 'Evernote Public Notebook Url' do
 	EVERNOTE_PUBLIC_NOTEBOOK_URL = "https://www.evernote.com/pub/xaviuzz/notes2reveal"
 	SANDBOX_PUBLIC_NOTEBOOK_URL = "https://sandbox.evernote.com/pub/olareoun/mipublicnotebook"
 
-	it 'extracts user and notebook name from evernote url' do
+	it 'extracts user and notebook name and host from evernote url' do
 		Extractor.extractUsername(EVERNOTE_PUBLIC_NOTEBOOK_URL).should == 'xaviuzz'
 		Extractor.extractNotebookName(EVERNOTE_PUBLIC_NOTEBOOK_URL).should == 'notes2reveal'
+		Extractor.extractHost(EVERNOTE_PUBLIC_NOTEBOOK_URL).should == 'https://www.evernote.com'
 	end
 
-	it 'extracts user and notebook name from sandbox evernote url' do
+	it 'extracts user and notebook name and host from sandbox evernote url' do
 		Extractor.extractUsername(SANDBOX_PUBLIC_NOTEBOOK_URL).should == 'olareoun'
 		Extractor.extractNotebookName(SANDBOX_PUBLIC_NOTEBOOK_URL).should == 'mipublicnotebook'
+		Extractor.extractHost(SANDBOX_PUBLIC_NOTEBOOK_URL).should == 'https://sandbox.evernote.com'
 	end
 
 	it 'does not extract user and notebook name from not valid public notebook url' do

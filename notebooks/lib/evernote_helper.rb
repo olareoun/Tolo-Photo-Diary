@@ -3,9 +3,9 @@ require_relative "./note"
 
 class EvernoteHelper
 
-	def self.getNotebook(user_name, notebook_name)
-	    user_info = getUserInfo(user_name)
-	    note_store = getNotestore(user_info)
+	def self.getNotebook(host, user_name, notebook_name)
+	    user_info = getUserInfo(user_name, host)
+	    note_store = getNotestore(user_info, host)
 	    getNotes(user_info, note_store, notebook_name)
 	end
 
@@ -19,17 +19,17 @@ class EvernoteHelper
 		notes
 	  end
 
-	  def self.getUserInfo(user_name)
-	    userStoreUrl = EVERNOTE_HOST + "/edam/user"
+	  def self.getUserInfo(user_name, host)
+	    userStoreUrl = host + "/edam/user"
 	    userStoreTransport = Thrift::HTTPClientTransport.new(userStoreUrl)
 	    userStoreProtocol = Thrift::BinaryProtocol.new(userStoreTransport)
 	    userStore = Evernote::EDAM::UserStore::UserStore::Client.new(userStoreProtocol)
 	    userStore.getPublicUserInfo(user_name)
 	  end
 
-	  def self.getNotestore(user_info)
+	  def self.getNotestore(user_info, host)
 	  	sharedId = user_info.shardId
-	    noteStoreTransport = Thrift::HTTPClientTransport.new(EVERNOTE_HOST + "/shard/" + sharedId + "/notestore")
+	    noteStoreTransport = Thrift::HTTPClientTransport.new(host + "/shard/" + sharedId + "/notestore")
 	    noteStoreProtocol = Thrift::BinaryProtocol.new(noteStoreTransport)
 	    noteStore = Evernote::EDAM::NoteStore::NoteStore::Client.new(noteStoreProtocol)
 	    noteStore

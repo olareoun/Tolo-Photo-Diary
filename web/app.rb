@@ -50,7 +50,8 @@ class Web < Sinatra::Base
   def getPublicNotebookNotes(publicUrl)
         username = Extractor.extractUsername(params['publicUrl'])
         notebookname = Extractor.extractNotebookName(params['publicUrl'])
-        Notebooks::NotebooksDomain.get(username, notebookname).getNotes
+        host = Extractor.extractHost(params['publicUrl'])
+        Notebooks::NotebooksDomain.get(host, username, notebookname).getNotes
   end
 
 end

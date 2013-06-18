@@ -1,4 +1,5 @@
 SANDBOX_URL = 'https://sandbox.evernote.com/pub/olareoun/mipublicnotebook'
+EVERNOTE_URL = 'https://www.evernote.com/pub/wilthor/wilthorsnotebook'
 
 Given /^I am in notes2reveal$/ do
   visit 'http://localhost:3000/'
@@ -83,3 +84,29 @@ Then(/^second title matches second note title$/) do
   sleep 1
   page.first("div.slides section h1").text.should == 'primera nota del publico'.upcase
 end
+
+When(/^I create a presentation from evernote$/) do
+  fill_in('publicUrl', :with => EVERNOTE_URL)
+  find('#submit').click
+end
+
+Then(/^first title matches first note title in evernote$/) do
+  page.has_css?("div.reveal").should be_true
+  page.has_css?("div.slides").should be_true
+  page.all("div.slides section", :visible => false).length.should == 3
+  page.first("div.slides section h1").text.should == 'Otra nota'.upcase
+end
+
+Then(/^second title matches second note title in evernote$/) do
+  page.find('div.navigate-right').click
+  sleep 1
+  page.first("div.slides section h1").text.should == 'nota solo texto'.upcase
+end
+
+Then(/^third title matches third note title in evernote$/) do
+  page.find('div.navigate-right').click
+  sleep 1
+  page.first("div.slides section h1").text.should == 'nana'.upcase
+end
+
+

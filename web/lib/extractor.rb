@@ -13,6 +13,12 @@ class Extractor
 		match(url)[1]
 	end
 
+	def self.extractHost(url)
+		uri = URI(url)
+		check(uri)
+		uri.scheme + '://' + uri.host
+	end
+
 	def self.match(url)
 		uri = URI(url)
 		check(uri)

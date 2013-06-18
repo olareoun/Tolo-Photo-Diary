@@ -2,9 +2,5 @@ require 'oauth'
 require 'oauth/consumer'
 require "evernote_oauth"
 
-OAUTH_CONSUMER_KEY_FULL = "olareoun-1256"
-OAUTH_CONSUMER_SECRET_FULL = '1cb959efa75b2e96'
-
-SANDBOX = true
-
-EVERNOTE_HOST = "https://sandbox.evernote.com"
+EVERNOTE_DEVELOPER_TOKEN = "S=s256:U=2ce05fb:E=14699a3d278:C=13f41f2a67b:P=1cd:A=en-devtoken:V=2:H=6a9d5faf401a355eabaa96dfae32ef95"
+EVERNOTE_NOTESTORE_URL = "https://www.evernote.com/shard/s256/notestore"
