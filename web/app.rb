@@ -1,5 +1,4 @@
 require 'sinatra/base'
-require 'json'
 require 'evernote_oauth'
 
 require_relative '../slides/lib/slide'
@@ -7,8 +6,8 @@ require_relative '../slides/lib/slides'
 require_relative '../slides/lib/slides_domain'
 require_relative '../notebooks/lib/notebooks_domain'
 require_relative 'lib/notifier'
-require_relative 'lib/marshaller'
 require_relative 'lib/extractor'
+require_relative 'lib/bad_argument_exception'
 
 class Web < Sinatra::Base
   set :public_folder, './web/public'
@@ -30,21 +29,18 @@ class Web < Sinatra::Base
       erb :presentation , :layout => :reveal_js
     rescue BadArgumentException => e
       redirect '/?alert_signal=' + e.exception_key
+    rescue BadPublicNotebookUrlException => e
+      redirect '/?alert_signal=' + 'no.evernote.url'
     end
   end
 
   def getNotes(params)
       if params['publicUrl'].empty?
-        notes = getJsonNotes(params['json_field'])
+        raise BadArgumentException, 'empty.url'
       else
         notes = getPublicNotebookNotes(params['publicUrl'])
       end
       notes
-  end
-
-  def getJsonNotes(json)
-        Marshaller.check(json)
-        Marshaller.unmarshall(json);
   end
 
   def getPublicNotebookNotes(publicUrl)

@@ -4,13 +4,11 @@
 		<strong><%= @message %></strong>
 	</div>
 <% end %>
-<form method='POST' action='/generate' name='json_form' id='json_form'>
+<form method='POST' action='/generate' name='url_form' id='url_form'>
   <fieldset>
-    <legend>Export from Json</legend>
+    <legend>Export from Evernote public notebook url</legend>
     <label>Public Notebook Url</label>
     <input placeholder="Insert Url" name='publicUrl' id='publicUrl'/>
-    <label>Json</label>
-    <textarea placeholder="Insert json" name='json_field' cols="100" rows="5" ></textarea>
     <button type='submit' id="submit" class="btn">submit</button>
   </fieldset>
 </form>

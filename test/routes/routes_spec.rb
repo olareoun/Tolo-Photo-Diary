@@ -16,29 +16,22 @@ describe "Notes2Reveal Routes" do
 
   describe "/generate" do
 
-    it "goes to / when empty json" do
-      post "/generate", "json_field" => "", "publicUrl" => ""
+    it "goes to / when no public url" do
+      post "/generate", "publicUrl" => ""
       last_response.should be_redirect
       follow_redirect!
       last_request.path_info.should == '/'
-      last_request.query_string.should == 'alert_signal=empty.json'
+      last_request.query_string.should == 'alert_signal=empty.url'
     end
 
-    it "goes to / when empty json collection" do
-      post "/generate", "json_field" => "[]", "publicUrl" => ""
+    it "goes to / when bad formed public url" do
+      post "/generate", "publicUrl" => "wwww.notevernotedomain.com/pub/xaviuzz/tal"
       last_response.should be_redirect
       follow_redirect!
       last_request.path_info.should == '/'
-      last_request.query_string.should == 'alert_signal=empty.json.collection'
+      last_request.query_string.should == 'alert_signal=no.evernote.url'
     end
 
-    it "goes to / when bad formed json collection" do
-      post "/generate", "json_field" => '{{"title": "my title", "body": "my body"}{}}}', "publicUrl" => ""
-      last_response.should be_redirect
-      follow_redirect!
-      last_request.path_info.should == '/'
-      last_request.query_string.should == 'alert_signal=bad.formed.json'
-    end
 
   end
 

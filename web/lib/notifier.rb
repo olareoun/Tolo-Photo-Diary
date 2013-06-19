@@ -1,9 +1,8 @@
 class Notifier
 
 	Messages = {
-		'empty.json' => 'We can not do a presentation with empty data.',
-		'empty.json.collection' => 'We can not do a presentation with an empty notes collection.',
-		'bad.formed.json' => 'We can not do a presentation with a bad formed json.'
+		'empty.url' => 'We need a public evernote notebook url to make your presentation.',
+		'no.evernote.url' => 'We can not do a presentation with a non evernote public notebook url.',
 	}
 
 	def self.message_for(alert_signal)

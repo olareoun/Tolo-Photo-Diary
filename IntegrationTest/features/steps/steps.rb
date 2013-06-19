@@ -5,28 +5,32 @@ Given /^I am in notes2reveal$/ do
   visit 'http://localhost:3000/'
 end
 
-Given /^I got a json with notes$/ do
-  @the_json = '[{"title": "a title", "content": "some content"}, {"title": "another title", "content": "more content"}, {"title": "one more title", "content": "yet more content"}]'
+Given(/^I got an empty url$/) do
+  @url = ''
 end
 
-Given(/^I got an empty json$/) do
-  @the_json = ''
-end
-
-Given(/^I got an empty json collection$/) do
-  @the_json = '[]'
-end
-
-Given(/^I got a bad formed json$/) do
-  @the_json = '{{"title": "my title", "content": "my body"}{}}}'
-end
-
-Given(/^I got a json with notes some of the with no standard data$/) do
-  @the_json = '[{"title": "a title", "content": "some content"}, {"bla": "another title", "ble": "more content"}, {"title": "one more title", "content": "yet more content"}]'
+Given(/^I got a non evernote public notebook url$/) do
+  @url = 'wwww.notevernotedomain.com/pub/xaviuzz/tal'
 end
 
 When /^I send it to the notes2reveal$/ do
-  fill_in('json_field', :with => @the_json)
+  fill_in('publicUrl', :with => @url)
+  find('#submit').click
+end
+
+When(/^I create a presentation from evernote$/) do
+  fill_in('publicUrl', :with => EVERNOTE_URL)
+  find('#submit').click
+end
+
+When(/^I look for an alert$/) do
+end
+
+When(/^I look for a field to insert a public evernote url$/) do
+end
+
+When(/^I create a presentation from sandbox$/) do
+  fill_in('publicUrl', :with => SANDBOX_URL)
   find('#submit').click
 end
 
@@ -47,9 +51,6 @@ Then(/^I see an alert message "(.*?)"$/) do |alert_message|
   page.find("div.alert").should have_content(alert_message)
 end
 
-When(/^I look for an alert$/) do
-end
-
 Then(/^I can not see any alert$/) do
   page.has_css?("div.alert").should be_false
 end
@@ -60,16 +61,8 @@ Then(/^I got a reveal presentation with no empty notes$/) do
   page.all("div.slides section", :visible => false).length.should == 2
 end
 
-When(/^I look for a field to insert a public evernote url$/) do
-end
-
 Then(/^I can see it$/) do
   page.find('#publicUrl').should be_true
-end
-
-When(/^I create a presentation from sandbox$/) do
-  fill_in('publicUrl', :with => SANDBOX_URL)
-  find('#submit').click
 end
 
 Then(/^first title matches first note title$/) do
@@ -83,11 +76,6 @@ Then(/^second title matches second note title$/) do
   page.find('div.navigate-right').click
   sleep 1
   page.first("div.slides section h1").text.should == 'primera nota del publico'.upcase
-end
-
-When(/^I create a presentation from evernote$/) do
-  fill_in('publicUrl', :with => EVERNOTE_URL)
-  find('#submit').click
 end
 
 Then(/^first title matches first note title in evernote$/) do
