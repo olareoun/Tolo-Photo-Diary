@@ -3,31 +3,27 @@ require_relative "./note"
 
 class EvernoteHelper
 
-	def self.getNotebook(host, user_name, notebook_name)
-	    user_info = getUserInfo(user_name, host)
-	    note_store = getNotestore(user_info, host)
-	    getNotebookNotes(user_info, note_store, notebook_name)
-	end
-
-	def self.getNotesByIds(host, user_name, ids)
-	    user_info = getUserInfo(user_name, host)
-	    note_store = getNotestore(user_info, host)
-	    getNotes(note_store, ids)
+	def self.getNotebook(url, sortedIds = nil)
+	    user_info = getUserInfo(url.user_name, url.host)
+	    note_store = getNotestore(user_info, url.host)
+	    if sortedIds.nil?
+		    getNotebookNotes(user_info, note_store, url.notebook_name)
+		else
+		    getNotes(note_store, sortedIds)
+		end
 	end
 
 	private
 
+	  def self.getNotebookNotes(user_info, note_store, notebook_name)
+		notes_metadata = getNotesMetadata(user_info, note_store, notebook_name)
+		ids = notes_metadata.notes.map(&:guid)
+		getNotes(note_store, ids)
+	  end
+
 	  def self.getNotes(note_store, ids)
 		notes = ids.map do |noteId|
 		 Notebooks::Note.new note_store.getNote('', noteId, true, true, false, false)
-		end
-		notes
-	  end
-
-	  def self.getNotebookNotes(user_info, note_store, notebook_name)
-		notes_metadata = getNotesMetadata(user_info, note_store, notebook_name)
-		notes = notes_metadata.notes.map do |note|
-		 Notebooks::Note.new note_store.getNote('', note.guid, true, true, false, false)
 		end
 		notes
 	  end

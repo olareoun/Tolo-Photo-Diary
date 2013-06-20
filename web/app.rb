@@ -6,7 +6,6 @@ require_relative '../slides/lib/slides'
 require_relative '../slides/lib/slides_domain'
 require_relative '../notebooks/lib/notebooks_domain'
 require_relative 'lib/notifier'
-require_relative 'lib/extractor'
 require_relative 'lib/bad_argument_exception'
 
 class Web < Sinatra::Base
@@ -68,16 +67,9 @@ class Web < Sinatra::Base
       if url.nil? || url.empty?
         raise BadArgumentException, 'empty.url'
       else
-        notes = getPublicNotebookNotes(url, sortedIds)
+        notes = Notebooks::NotebooksDomain.get(url, sortedIds).getNotes
       end
       notes
-  end
-
-  def getPublicNotebookNotes(publicUrl, sortedIds = nil)
-        username = Extractor.extractUsername(publicUrl)
-        notebookname = Extractor.extractNotebookName(publicUrl)
-        host = Extractor.extractHost(publicUrl)
-        Notebooks::NotebooksDomain.get(host, username, notebookname, sortedIds).getNotes
   end
 
 end

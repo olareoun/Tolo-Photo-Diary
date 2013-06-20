@@ -15,7 +15,6 @@ Scenario: SORTABLE list with the titles of my notes
 	When I go to arrange
 	Then I can see a sortable list with the titles of my notes
 
-@wip
 Scenario: generate presentation following that order
 	Given I am in the arrange page
 	And I change the order of the slides

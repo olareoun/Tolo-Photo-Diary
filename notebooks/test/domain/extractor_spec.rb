@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative '../../web/lib/extractor'
+require_relative '../../lib/extractor'
 
 describe 'Evernote Public Notebook Url' do
 
