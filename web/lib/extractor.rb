@@ -3,7 +3,7 @@ require_relative 'bad_public_notebook_url_exception'
 class Extractor
 
 	DOMAIN_PATTERN = /www\.evernote\.com|sandbox\.evernote\.com/ 
-	PUBLIC_NOTEBOOK_PATH_PATTERN = /\/pub\/(\w+)\/(\w+)\/?\Z/
+	PUBLIC_NOTEBOOK_PATH_PATTERN = /\/pub\/(\w+)\/([a-zA-Z0-9_\-]+)\/?\Z/
 
 	def self.extractUsername(url)
 		match(url)[0]

@@ -25,4 +25,9 @@ describe 'Evernote Public Notebook Url' do
 	it 'does not extract user and notebook name from not evernote url' do
 		expect{Extractor.extractUsername("https://gmail.com/pub/olareoun/mipublicnotebook")}.to raise_error(BadPublicNotebookUrlException)
 	end
+
+	it 'allows some special chars in notebook name' do
+		Extractor.extractNotebookName("https://sandbox.evernote.com/pub/olareoun/mi-public-notebook").should == 'mi-public-notebook'
+		Extractor.extractNotebookName("https://sandbox.evernote.com/pub/olareoun/public_notebook").should == 'public_notebook'
+	end
 end
