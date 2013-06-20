@@ -7,7 +7,7 @@ describe 'Slide' do
 		slide = Slides::Slide.new
 		slide.entitle('title')
 		slide.putContent('content')
-		slide.has('title', 'content').should be_true
+		slide.to_s.should == 'title - content'
 	end
 
 	describe 'expressing as string' do
@@ -42,11 +42,11 @@ describe 'Slide' do
 			slide = Slides::Slide.new
 			slide.entitle('my title')
 			slide.putContent('some content')
-			slide.to_html.should == '<section><h1>my title</h1><p>some content</p></section>'
+			slide.to_html.should == '<section><section><h1>my title</h1></section><section><p>some content</p></section></section>'
 		end
 
 		it 'when empty' do
-			Slides::Slide.new.to_html.should == '<section></section>'
+			Slides::Slide.new.to_html.should == ''
 		end
 
 		it 'when has just title' do

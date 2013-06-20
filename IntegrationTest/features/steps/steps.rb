@@ -47,7 +47,7 @@ end
 Then(/^I got a reveal presentation with my notes$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 3
+  page.all("div.slides section", :visible => false).length.should == 9
   page.first("div.slides section h1").text.should == 'a title'.upcase
   page.first("div.slides section p").text.should == 'some content'
 end
@@ -68,7 +68,7 @@ end
 Then(/^I got a reveal presentation with no empty notes$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 2
+  page.all("div.slides section", :visible => false).length.should == 6
 end
 
 Then(/^I can see it$/) do
@@ -78,7 +78,7 @@ end
 Then(/^first title matches first note title$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 2
+  page.all("div.slides section", :visible => false).length.should == 6
   page.first("div.slides section h1").text.should == 'segunda nota del publico'.upcase
 end
 
@@ -91,7 +91,7 @@ end
 Then(/^first title matches first note title in evernote$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 3
+  page.all("div.slides section", :visible => false).length.should == 9
   page.first("div.slides section h1").text.should == 'Otra nota'.upcase
 end
 
@@ -141,7 +141,7 @@ end
 Then(/^the slides are generated in that order$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 4
+  page.all("div.slides section", :visible => false).length.should == 12
   page.first("div.slides section h1").text.should == 'nota4'.upcase
   page.find('div.navigate-right').click
   sleep 1
@@ -152,4 +152,13 @@ Then(/^the slides are generated in that order$/) do
   page.find('div.navigate-right').click
   sleep 1
   page.first("div.slides section h1").text.should == 'nota1'.upcase
+end
+
+When(/^I click down button$/) do
+  page.find('div.navigate-down.enabled').click
+  sleep 1
+end
+
+Then(/^I should see the content of the note$/) do
+  page.first("div.slides section section").text.should == 'contenido de la segunda nota del publico'
 end

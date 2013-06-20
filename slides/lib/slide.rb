@@ -23,19 +23,28 @@ module Slides
 		end
 
 		def to_html
-			html = '<section>'
-			html += '<h1>' + @title + '</h1>' unless @title.nil?
-			html += '<p>' + @content + '</p>' unless @content.nil?
-			html += '</section>'
+			html = ''
+			html += '<section>' if composed
+			html += '<section><h1>' + @title + '</h1></section>' unless @title.nil?
+			html += '<section><p>' + @content + '</p></section>' unless @content.nil?
+			html += '</section>' if composed
 			html
 		end
 
+		def composed
+			hasTitle && hasContent
+ 		end
+
+ 		def hasTitle
+ 			!@title.nil? && !@title.empty?
+ 		end
+
+ 		def hasContent
+ 			!@content.nil? && !@content.empty?
+ 		end
+
 		def empty?
 			to_s.empty?
-		end
-
-		def has(title, content)
-			@title == title && @content = content
 		end
 
 	end
