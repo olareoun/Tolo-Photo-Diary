@@ -7,9 +7,11 @@ describe 'Note' do
 		evnote = Evernote::EDAM::Type::Note.new
 		evnote.title = 'title'
 		evnote.content = 'content'
+		evnote.guid = 'id1'
 		note = Notebooks::Note.new(evnote)
 		note.getTitle().should == 'title'
 		note.getContent().should == 'content'
+		note.getId().should == 'id1'
 	end
 
 	it 'when created with nil parameter' do

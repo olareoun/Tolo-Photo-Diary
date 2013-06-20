@@ -24,5 +24,9 @@ module Notebooks
 			@note.content
 		end
 
+		def getId()
+			@note.guid
+		end
+
 	end
 end

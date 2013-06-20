@@ -17,7 +17,6 @@ Scenario:
     Then I get back to the form
     And I see an alert message "We need a public evernote notebook url to make your presentation."
 
-@wip
 Scenario:
 	Given I got a non evernote public notebook url
     When I send it to the notes2reveal

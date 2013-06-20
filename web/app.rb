@@ -22,9 +22,22 @@ class Web < Sinatra::Base
     erb :index , :layout => :home_layout
   end
 
+  post '/arrange' do
+    begin
+      @publicUrl = params['publicUrl']
+      @notes = getNotes(params['publicUrl'])
+      erb :arrange , :layout => :home_layout
+    rescue BadArgumentException => e
+      redirect '/?alert_signal=' + e.exception_key
+    rescue BadPublicNotebookUrlException => e
+      redirect '/?alert_signal=' + 'no.evernote.url'
+    end
+  end
+
   post '/generate' do
     begin
-      notes = getNotes(params)
+      sortedIds = getSortedIds(params['sortedIdsStr'])
+      notes = getNotes(params['publicUrl'], sortedIds)
       @slides = Slides::SlidesDomain.create(notes)
       erb :presentation , :layout => :reveal_js
     rescue BadArgumentException => e
@@ -34,20 +47,37 @@ class Web < Sinatra::Base
     end
   end
 
-  def getNotes(params)
-      if params['publicUrl'].empty?
+  get '/generate' do
+    begin
+      notes = getNotes(params[:publicUrl])
+      @slides = Slides::SlidesDomain.create(notes)
+      erb :presentation , :layout => :reveal_js
+    rescue BadArgumentException => e
+      redirect '/?alert_signal=' + e.exception_key
+    rescue BadPublicNotebookUrlException => e
+      redirect '/?alert_signal=' + 'no.evernote.url'
+    end
+  end
+
+  def getSortedIds(sortedIdsStr)
+    return sortedIdsStr.split(',') unless sortedIdsStr.nil?
+    []
+  end
+
+  def getNotes(url, sortedIds = nil)
+      if url.nil? || url.empty?
         raise BadArgumentException, 'empty.url'
       else
-        notes = getPublicNotebookNotes(params['publicUrl'])
+        notes = getPublicNotebookNotes(url, sortedIds)
       end
       notes
   end
 
-  def getPublicNotebookNotes(publicUrl)
-        username = Extractor.extractUsername(params['publicUrl'])
-        notebookname = Extractor.extractNotebookName(params['publicUrl'])
-        host = Extractor.extractHost(params['publicUrl'])
-        Notebooks::NotebooksDomain.get(host, username, notebookname).getNotes
+  def getPublicNotebookNotes(publicUrl, sortedIds = nil)
+        username = Extractor.extractUsername(publicUrl)
+        notebookname = Extractor.extractNotebookName(publicUrl)
+        host = Extractor.extractHost(publicUrl)
+        Notebooks::NotebooksDomain.get(host, username, notebookname, sortedIds).getNotes
   end
 
 end

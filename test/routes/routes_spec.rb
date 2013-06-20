@@ -14,6 +14,27 @@ describe "Notes2Reveal Routes" do
   	@app
   end
 
+  describe "/arrange" do
+
+    it "goes to / when no public url" do
+      post "/arrange", "publicUrl" => ""
+      last_response.should be_redirect
+      follow_redirect!
+      last_request.path_info.should == '/'
+      last_request.query_string.should == 'alert_signal=empty.url'
+    end
+
+    it "goes to / when bad formed public url" do
+      post "/arrange", "publicUrl" => "wwww.notevernotedomain.com/pub/xaviuzz/tal"
+      last_response.should be_redirect
+      follow_redirect!
+      last_request.path_info.should == '/'
+      last_request.query_string.should == 'alert_signal=no.evernote.url'
+    end
+
+
+  end
+
   describe "/generate" do
 
     it "goes to / when no public url" do
@@ -31,7 +52,6 @@ describe "Notes2Reveal Routes" do
       last_request.path_info.should == '/'
       last_request.query_string.should == 'alert_signal=no.evernote.url'
     end
-
 
   end
 
