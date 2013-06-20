@@ -11,7 +11,7 @@ Given(/^I got an empty url$/) do
 end
 
 Given(/^I got a non evernote public notebook url$/) do
-  @url = 'wwww.notevernotedomain.com/pub/xaviuzz/tal'
+  fill_in('publicUrl', :with => 'wwww.notevernotedomain.com/pub/xaviuzz/tal')
 end
 
 Given(/^I got an evernote public notebook url$/) do
@@ -23,21 +23,25 @@ When(/^I go to arrange$/) do
 end
 
 When(/^I send it to the notes2reveal$/) do
-  visit 'http://localhost:3000/generate?publicUrl=' + @url
+  find('#submit').click
 end
 
 When(/^I create a presentation from evernote$/) do
-  visit 'http://localhost:3000/generate?publicUrl=' + EVERNOTE_URL
+  fill_in('publicUrl', :with => EVERNOTE_URL)
+  find('#submit').click
+  find('#generate').click
+end
+
+When(/^I create a presentation from sandbox$/) do
+  fill_in('publicUrl', :with => SANDBOX_URL)
+  find('#submit').click
+  find('#generate').click
 end
 
 When(/^I look for an alert$/) do
 end
 
 When(/^I look for a field to insert a public evernote url$/) do
-end
-
-When(/^I create a presentation from sandbox$/) do
-  visit 'http://localhost:3000/generate?publicUrl=' + SANDBOX_URL
 end
 
 Then(/^I got a reveal presentation with my notes$/) do

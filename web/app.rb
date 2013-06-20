@@ -46,18 +46,6 @@ class Web < Sinatra::Base
     end
   end
 
-  get '/generate' do
-    begin
-      notes = getNotes(params[:publicUrl])
-      @slides = Slides::SlidesDomain.create(notes)
-      erb :presentation , :layout => :reveal_js
-    rescue BadArgumentException => e
-      redirect '/?alert_signal=' + e.exception_key
-    rescue BadPublicNotebookUrlException => e
-      redirect '/?alert_signal=' + 'no.evernote.url'
-    end
-  end
-
   def getSortedIds(sortedIdsStr)
     return sortedIdsStr.split(',') unless sortedIdsStr.nil?
     []
