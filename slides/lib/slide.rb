@@ -25,8 +25,8 @@ module Slides
 		def to_html
 			html = ''
 			html += '<section>' if composed
-			html += '<section><h1>' + @title + '</h1></section>' unless @title.nil?
-			html += '<section><p>' + @content + '</p></section>' unless @content.nil?
+			html += '<section><h1>' + @title + '</h1></section>' unless !hasTitle
+			html += '<section><p>' + @content + '</p></section>' unless !hasContent
 			html += '</section>' if composed
 			html
 		end
