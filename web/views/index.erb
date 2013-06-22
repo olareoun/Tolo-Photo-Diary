@@ -4,11 +4,18 @@
 		<strong><%= @message %></strong>
 	</div>
 <% end %>
+
+<p class='lead'>Export from Evernote public notebook url</p>
+<p class="pull-right">
+  <a href="http://evernote.com/evernote/guide/web/#7" target='_blank'>
+    What is an evernote public notebook?
+  </a>
+</p>
+
 <form method='POST' action='/arrange' name='url_form' id='url_form'>
   <fieldset>
-    <legend>Export from Evernote public notebook url</legend>
     <label>Public Notebook Url</label>
-    <input placeholder="Insert Url" name='publicUrl' id='publicUrl'/>
+    <input placeholder="http://www.evernote.com/pub/user/notebook" name='publicUrl' id='publicUrl'/>
     <button type='submit' id="submit" class="btn">arrange</button>
   </fieldset>
 </form>

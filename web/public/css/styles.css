@@ -45,3 +45,34 @@ div.hero-unit p{
 	font-size: 45px;
 	line-height: 50px;
 }
+
+
+div.hero-unit a:hover,
+div.hero-unit a:visited,
+div.hero-unit a {
+	color:#F5F7E7 ;	
+}
+
+footer{
+	margin-top: 25px;
+}
+
+.alert{
+	background-color: #861501;
+	color:#F5F7E7 ;
+	text-shadow: none;
+}
+
+.close{
+	opacity: 1;
+	text-shadow: none;
+	color:#F5F7E7 ;	
+}
+
+p.lead {
+	font-family: 'Noto Serif', serif;
+	font-size: 25px;
+	margin: 25px;
+	color: #656959;
+	font-weight: bold;
+}
