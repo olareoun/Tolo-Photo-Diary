@@ -1,0 +1,47 @@
+body {
+  background-color: #F5F7E7;
+  margin-top: 20px;
+}
+
+
+h1 {
+  font-family: 'Noto Serif', serif;
+
+}
+
+.name{
+	font-size: 90px;
+	margin-top: 25px;
+}
+
+img.logo{
+	width: 120px;
+}
+
+.notes{
+	color: #468F2A;
+	font-size: 70px;
+}
+
+.to{
+	color: #861501;
+	font-size: 90px;
+}
+
+.reveal{
+	color: #656959;
+	font-size: 70px;
+}
+
+div.hero-unit{
+	background-color: #861501;
+	color:#F5F7E7 ;
+	font-family: 'Noto Serif', serif;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+div.hero-unit p{
+	font-size: 45px;
+	line-height: 50px;
+}
