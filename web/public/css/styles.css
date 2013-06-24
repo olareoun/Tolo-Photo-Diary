@@ -109,4 +109,46 @@ label{
 	border: none;
 	box-shadow: none;
 	margin-top: 32px; 
+  font-family: 'Noto Serif', serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: #656959;
+}
+
+#sortable {
+ 	list-style-type: none;
+ 	margin: 0;
+ 	padding: 0; 
+}
+
+#sortable li {
+ 	background-color: #F5F7E7;
+	height:55px;
+	font-family: 'Noto Serif', serif;
+	font-size: 23px;
+	color: #656959;
+	border-radius: 10px;
+	border: 5px solid  #656959; 
+	font-size: 23px;
+  height: 34px;
+  margin: 10px 20px;
+  padding: 15px;
+
+}
+
+#sortable li span {
+	position: absolute;
+	margin-left: -1.3em; 
+}
+
+#hiddenForm{
+	display:none;
+}
+
+p.lead{
+	margin: 25px;
+	font-size: 25px;
+	font-style: italic;
+	font-weight: bold;
+	color: #656959;
 }
