@@ -1,12 +1,7 @@
 body {
   background-color: #F5F7E7;
   margin-top: 20px;
-}
-
-
-h1 {
   font-family: 'Noto Serif', serif;
-
 }
 
 .name{
@@ -36,7 +31,6 @@ img.logo{
 div.hero-unit{
 	background-color: #861501;
 	color:#F5F7E7 ;
-	font-family: 'Noto Serif', serif;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
@@ -54,7 +48,7 @@ div.hero-unit a {
 }
 
 footer{
-	margin-top: 25px;
+	margin-top: 45px;
 }
 
 .alert{
@@ -69,10 +63,50 @@ footer{
 	color:#F5F7E7 ;	
 }
 
-p.lead {
-	font-family: 'Noto Serif', serif;
-	font-size: 25px;
+fieldset{
 	margin: 25px;
-	color: #656959;
+}
+
+label{
+	font-size: 25px;
+	font-style: italic;
 	font-weight: bold;
+	color: #656959;
+}
+
+#publicUrl, #publicUrl:focus{
+	background-color: #F5F7E7;
+	width: 600px;
+	height:55px;
+	padding: 5px;
+	padding-bottom: 0px;
+	font-family: 'Noto Serif', serif;
+	font-size: 23px;
+	color: #656959;
+	border-radius: 10px;
+	border: 5px solid  #656959; 
+  -webkit-box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+  -moz-box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+  	box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+    padding: 15px;
+    margin: 15px 0 15px 0;
+}
+
+#publicUrl:focus{
+	background-color: #Ffffff;
+	outline:none;
+}
+
+.arrange, .arrange:focus ,.arrange:hover{
+	background-color: #F5F7E7;
+	background-image: none;
+	border: none;
+	box-shadow: none;
+	margin-top: 32px; 
 }
