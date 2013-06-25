@@ -1,6 +1,7 @@
 SANDBOX_URL = 'https://sandbox.evernote.com/pub/olareoun/mipublicnotebook'
 ARRANGE_SANDBOX_URL = 'https://sandbox.evernote.com/pub/olareoun/arrangenotebook'
 EVERNOTE_URL = 'https://www.evernote.com/pub/wilthor/wilthorsnotebook'
+JUST_TITLE = 'https://sandbox.evernote.com/pub/olareoun/just-title'
 
 Given /^I am in notes2reveal$/ do
   visit 'http://localhost:3000/'
@@ -161,4 +162,16 @@ end
 
 Then(/^I should see the content of the note$/) do
   page.first("div.slides section section").text.should == 'contenido de la segunda nota del publico'
+end
+
+When(/^I create a presentation from evernote with a note with just title$/) do
+  fill_in('publicUrl', :with => JUST_TITLE)
+  find('#submit').click
+  find('#generate').click
+end
+
+Then(/^no vertical slide for content is generated$/) do
+  page.has_css?("div.reveal").should be_true
+  page.has_css?("div.slides").should be_true
+  page.all("div.slides section", :visible => false).length.should == 1
 end

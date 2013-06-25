@@ -21,4 +21,13 @@ describe 'Note' do
 		note.getTitle().should == 'title'
 		note.getContent().should == 'content'
 	end
+
+	it 'does not have content when just evernote note tag' do
+		evnote = Evernote::EDAM::Type::Note.new
+		evnote.title = 'title'
+		evnote.content = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd"><en-note><div><br clear="none"/></div></en-note>'
+		note = Notebooks::Note.new(evnote)
+		note.getTitle().should == 'title'
+		note.getContent().should == ''
+	end
 end

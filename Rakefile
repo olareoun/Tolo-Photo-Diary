@@ -78,7 +78,6 @@ namespace :test do
 
   desc "Run wip"
   task :wip do
-    Rake::Task['test:wipux'].execute
     Rake::Task['test:wipintegration'].execute
   end
 

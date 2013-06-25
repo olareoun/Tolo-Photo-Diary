@@ -10,7 +10,6 @@ Scenario: Slide title in first vertical position
 	When I create a presentation from sandbox
 	Then first title matches first note title
 
-@wip
 Scenario: Slide title in first vertical position
 	When I create a presentation from sandbox
 	And I click down button
