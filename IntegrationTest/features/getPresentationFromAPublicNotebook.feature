@@ -38,7 +38,6 @@ Scenario: Every slide uses the note title as title
 	And second title matches second note title in evernote
 	And third title matches third note title in evernote
 
-@wip
 Scenario: Do not generate vertical content slide when note content empty
 	When I create a presentation from evernote with a note with just title
 	Then no vertical slide for content is generated

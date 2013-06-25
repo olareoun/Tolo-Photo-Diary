@@ -32,6 +32,10 @@ module Notebooks
 			content
 		end
 
+		def getImages
+		    @note.resources.map{ |resource| resource.data.body } unless @note.resources.nil?
+		end
+
 		def getId()
 			@note.guid
 		end

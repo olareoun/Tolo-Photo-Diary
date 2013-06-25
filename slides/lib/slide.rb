@@ -14,6 +14,10 @@ module Slides
 			@content = aContent
 		end
 
+		def putImages images
+			@images = images
+		end
+
 		def to_s
 			description = ''
 			description += @title.to_s unless @title.nil?
@@ -27,8 +31,17 @@ module Slides
 			html += '<section>' if composed
 			html += '<section><h1>' + @title + '</h1></section>' unless !hasTitle
 			html += '<section><p>' + @content + '</p></section>' unless !hasContent
+			html += renderImages unless @images.nil?
 			html += '</section>' if composed
 			html
+		end
+
+		def renderImages
+			rendered = ''
+			@images.each do |image|
+				rendered += '<section><img src="data:image/;base64,' + Base64.encode64(image) + '" width="600" heigth="500"/></section>'
+			end
+			rendered
 		end
 
 		def composed

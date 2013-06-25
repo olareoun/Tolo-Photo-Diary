@@ -2,6 +2,10 @@ SANDBOX_URL = 'https://sandbox.evernote.com/pub/olareoun/mipublicnotebook'
 ARRANGE_SANDBOX_URL = 'https://sandbox.evernote.com/pub/olareoun/arrangenotebook'
 EVERNOTE_URL = 'https://www.evernote.com/pub/wilthor/wilthorsnotebook'
 JUST_TITLE = 'https://sandbox.evernote.com/pub/olareoun/just-title'
+IMAGE_URL = 'https://sandbox.evernote.com/pub/olareoun/image'
+IMAGES_URL = 'https://sandbox.evernote.com/pub/olareoun/images'
+GIF_IMAGE_URL = 'https://sandbox.evernote.com/pub/olareoun/gif-image'
+PNG_IMAGE_URL = 'https://sandbox.evernote.com/pub/olareoun/png-image'
 
 Given /^I am in notes2reveal$/ do
   visit 'http://localhost:3000/'
@@ -93,19 +97,19 @@ Then(/^first title matches first note title in evernote$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
   page.all("div.slides section", :visible => false).length.should == 9
-  page.first("div.slides section h1").text.should == 'Otra nota'.upcase
+  page.first("div.slides section h1").text.should == 'nota solo texto'.upcase
 end
 
 Then(/^second title matches second note title in evernote$/) do
   page.find('div.navigate-right').click
   sleep 1
-  page.first("div.slides section h1").text.should == 'nota solo texto'.upcase
+  page.first("div.slides section h1").text.should == 'nana'.upcase
 end
 
 Then(/^third title matches third note title in evernote$/) do
   page.find('div.navigate-right').click
   sleep 1
-  page.first("div.slides section h1").text.should == 'nana'.upcase
+  page.first("div.slides section h1").text.should == 'otra nota'.upcase
 end
 
 Then(/^I can see a list with the titles of my notes$/) do
@@ -174,4 +178,53 @@ Then(/^no vertical slide for content is generated$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
   page.all("div.slides section", :visible => false).length.should == 1
+end
+
+When(/^I create a presentation from a notebook with a note and a image$/) do
+  fill_in('publicUrl', :with => IMAGE_URL)
+  find('#submit').click
+  find('#generate').click
+end
+
+Then(/^I can see the image in the third vertical position$/) do
+  page.has_css?("div.reveal").should be_true
+  page.has_css?("div.slides").should be_true
+  page.all("div.slides section", :visible => false).length.should == 4
+  page.find('div.navigate-down').click
+  sleep 1
+  page.find('div.navigate-down').click
+  sleep 1
+  page.all("div.slides section img").length.should == 1
+end
+
+When(/^I create a presentation from a notebook with a note and several images$/) do
+  fill_in('publicUrl', :with => IMAGES_URL)
+  find('#submit').click
+  find('#generate').click
+end
+
+Then(/^I can see consecutive vertical slides$/) do
+  page.has_css?("div.reveal").should be_true
+  page.has_css?("div.slides").should be_true
+  page.all("div.slides section", :visible => false).length.should == 5
+  page.find('div.navigate-down').click
+  sleep 1
+  page.find('div.navigate-down').click
+  sleep 1
+  page.all("div.slides section img").length.should == 1
+  page.find('div.navigate-down').click
+  sleep 1
+  page.all("div.slides section img").length.should == 1
+end
+
+When(/^I create a presentation from a notebook with a note and a gif image$/) do
+  fill_in('publicUrl', :with => GIF_IMAGE_URL)
+  find('#submit').click
+  find('#generate').click
+end
+
+When(/^I create a presentation from a notebook with a note and a png image$/) do
+  fill_in('publicUrl', :with => PNG_IMAGE_URL)
+  find('#submit').click
+  find('#generate').click
 end

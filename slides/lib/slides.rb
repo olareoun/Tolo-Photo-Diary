@@ -9,11 +9,12 @@ module Slides
 			return @slides.empty?
 		end
 
-		def add_with(title, content)
+		def add_with(title, content, imgs = nil)
 			return if not_valid(title) && not_valid(content)
 			slide = Slide.new
 	        slide.entitle(title)
 	        slide.putContent(content)
+	        slide.putImages(imgs) unless imgs.nil?
 	        @slides << slide
 		end
 
