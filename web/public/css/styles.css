@@ -1,12 +1,7 @@
 body {
   background-color: #F5F7E7;
   margin-top: 20px;
-}
-
-
-h1 {
   font-family: 'Noto Serif', serif;
-
 }
 
 .name{
@@ -36,7 +31,6 @@ img.logo{
 div.hero-unit{
 	background-color: #861501;
 	color:#F5F7E7 ;
-	font-family: 'Noto Serif', serif;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
@@ -44,4 +38,117 @@ div.hero-unit{
 div.hero-unit p{
 	font-size: 45px;
 	line-height: 50px;
+}
+
+
+div.hero-unit a:hover,
+div.hero-unit a:visited,
+div.hero-unit a {
+	color:#F5F7E7 ;	
+}
+
+footer{
+	margin-top: 45px;
+}
+
+.alert{
+	background-color: #861501;
+	color:#F5F7E7 ;
+	text-shadow: none;
+}
+
+.close{
+	opacity: 1;
+	text-shadow: none;
+	color:#F5F7E7 ;	
+}
+
+fieldset{
+	margin: 25px;
+}
+
+label{
+	font-size: 25px;
+	font-style: italic;
+	font-weight: bold;
+	color: #656959;
+}
+
+#publicUrl, #publicUrl:focus{
+	background-color: #F5F7E7;
+	width: 600px;
+	height:55px;
+	padding: 5px;
+	padding-bottom: 0px;
+	font-family: 'Noto Serif', serif;
+	font-size: 23px;
+	color: #656959;
+	border-radius: 10px;
+	border: 5px solid  #656959; 
+  -webkit-box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+  -moz-box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+  	box-shadow: 
+    inset 0 0 8px  rgba(0,0,0,0.1),
+          0 0 16px rgba(0,0,0,0.1); 
+    padding: 15px;
+    margin: 15px 0 15px 0;
+}
+
+#publicUrl:focus{
+	background-color: #Ffffff;
+	outline:none;
+}
+
+.arrange, .arrange:focus ,.arrange:hover{
+	background-color: #F5F7E7;
+	background-image: none;
+	border: none;
+	box-shadow: none;
+	margin-top: 32px; 
+  font-family: 'Noto Serif', serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: #656959;
+}
+
+#sortable {
+ 	list-style-type: none;
+ 	margin: 0;
+ 	padding: 0; 
+}
+
+#sortable li {
+ 	background-color: #F5F7E7;
+	height:55px;
+	font-family: 'Noto Serif', serif;
+	font-size: 23px;
+	color: #656959;
+	border-radius: 10px;
+	border: 5px solid  #656959; 
+	font-size: 23px;
+  height: 34px;
+  margin: 10px 20px;
+  padding: 15px;
+
+}
+
+#sortable li span {
+	position: absolute;
+	margin-left: -1.3em; 
+}
+
+#hiddenForm{
+	display:none;
+}
+
+p.lead{
+	margin: 25px;
+	font-size: 25px;
+	font-style: italic;
+	font-weight: bold;
+	color: #656959;
 }

@@ -1,14 +1,33 @@
+<div class='hero-unit'>
+  <p> Easily export <a href='http://www.evernote.com' target='_blank'>Evernote</a> notebooks to <a href='http://lab.hakim.se/reveal-js/#/' target='_blank'>reveal.js</a> presentations!!</p>
+</div>
+
 <% if !@message.empty? %>
 	<div class="alert">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
 		<strong><%= @message %></strong>
 	</div>
 <% end %>
+<p class="pull-right">
+  <a href="http://evernote.com/evernote/guide/web/#7" target='_blank'>
+    What is an evernote public notebook?
+  </a>
+</p>
+
 <form method='POST' action='/arrange' name='url_form' id='url_form'>
   <fieldset>
-    <legend>Export from Evernote public notebook url</legend>
-    <label>Public Notebook Url</label>
-    <input placeholder="Insert Url" name='publicUrl' id='publicUrl'/>
-    <button type='submit' id="submit" class="btn">arrange</button>
+    <label>Public Evernote notebook URL</label>
+    <div class="input-append">
+    <input placeholder="http://www.evernote.com/pub/user/notebook" name='publicUrl' id='publicUrl'/>
+    <button type='submit' id="submit" class="btn arrange">
+      <img src='img/arrange.png' alt='Arrange'/>
+    </button>
+    <div>
   </fieldset>
 </form>
+
+<p class="pull-right">
+  <a href="http://evernote.com/evernote/guide/web/#7" target='_blank'>
+    Where can i find the URL?
+  </a>
+</p>
