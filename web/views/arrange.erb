@@ -1,9 +1,3 @@
-<script>
-	$(function() {
-		$("#sortable").sortable();
-	});
-</script>
-
 <p class="lead">
     Drag &amp; Drop notes to arrange order
 </p>
@@ -27,3 +21,14 @@
 	<span>Generate Slideshow</span>
 	<img src='img/slides.png' alt='Generate slideshow'/>
 </button>
+
+  <script>
+  	window.onload = function(){
+  		$("#sortable").sortable();
+  		$("#generate").click(function(){
+  					$('#sortedIdsStr').val($('#sortable').sortable('toArray').toString());
+  					$('#arrange-form').submit();
+  				});
+  	};
+  </script>
+
