@@ -1,6 +1,8 @@
 module Slides
 	class Slide
 
+		EN_NOTE_EMPTY_CONTENT = '<en-note><div><br clear="none"/></div></en-note>'
+
 		attr_accessor :title, :content
 
 		def initialize 
@@ -18,6 +20,10 @@ module Slides
 			@images = images
 		end
 
+		def putAudio audio
+			@audio = audio
+		end
+
 		def to_s
 			description = ''
 			description += @title.to_s unless @title.nil?
@@ -32,14 +38,23 @@ module Slides
 			html += '<section><h1>' + @title + '</h1></section>' unless !hasTitle
 			html += '<section><p>' + @content + '</p></section>' unless !hasContent
 			html += renderImages unless @images.nil?
+			html += renderAudio unless @audio.nil?
 			html += '</section>' if composed
 			html
+		end
+
+		def renderAudio
+			rendered = ''
+			@audio.each do |audio|
+				rendered += '<section>' + audio.name + '<div><audio controls data-autoplay><source src="data:' + audio.mimeType + ';base64,' + Base64.encode64(audio.bin) + '" type="' + audio.mimeType + '"></audio></div></section>'
+			end
+			rendered
 		end
 
 		def renderImages
 			rendered = ''
 			@images.each do |image|
-				rendered += '<section><img src="data:image/;base64,' + Base64.encode64(image) + '" width="600" heigth="500"/></section>'
+				rendered += '<section><img src="data:' + image.mimeType + ';base64,' + Base64.encode64(image.bin) + '" width="600" heigth="500"/></section>'
 			end
 			rendered
 		end
@@ -53,6 +68,7 @@ module Slides
  		end
 
  		def hasContent
+ 			@content = @content.gsub(EN_NOTE_EMPTY_CONTENT, '') if !@content.nil?
  			!@content.nil? && !@content.empty?
  		end
 

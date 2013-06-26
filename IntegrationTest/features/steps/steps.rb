@@ -6,6 +6,8 @@ IMAGE_URL = 'https://sandbox.evernote.com/pub/olareoun/image'
 IMAGES_URL = 'https://sandbox.evernote.com/pub/olareoun/images'
 GIF_IMAGE_URL = 'https://sandbox.evernote.com/pub/olareoun/gif-image'
 PNG_IMAGE_URL = 'https://sandbox.evernote.com/pub/olareoun/png-image'
+AUDIO_URL = 'https://sandbox.evernote.com/pub/olareoun/audio'
+AUDIOS_URL = 'https://sandbox.evernote.com/pub/olareoun/audios'
 
 Given /^I am in notes2reveal$/ do
   visit 'http://localhost:3000/'
@@ -227,4 +229,41 @@ When(/^I create a presentation from a notebook with a note and a png image$/) do
   fill_in('publicUrl', :with => PNG_IMAGE_URL)
   find('#submit').click
   find('#generate').click
+end
+
+When(/^I create a presentation from a notebook with a note and a audio$/) do
+  fill_in('publicUrl', :with => AUDIO_URL)
+  find('#submit').click
+  find('#generate').click
+end
+
+Then(/^I can see the audio in the third vertical position$/) do
+  page.has_css?("div.reveal").should be_true
+  page.has_css?("div.slides").should be_true
+  page.all("div.slides section", :visible => false).length.should == 4
+  page.find('div.navigate-down').click
+  sleep 1
+  page.find('div.navigate-down').click
+  sleep 1
+  page.all("div.slides section audio").length.should == 1
+end
+
+When(/^I create a presentation from a notebook with a note and several audio files$/) do
+  fill_in('publicUrl', :with => AUDIOS_URL)
+  find('#submit').click
+  find('#generate').click
+end
+
+Then(/^I can see the audios in consecutive vertical slides$/) do
+  page.has_css?("div.reveal").should be_true
+  page.has_css?("div.slides").should be_true
+  page.all("div.slides section", :visible => false).length.should == 5
+  page.find('div.navigate-down').click
+  sleep 1
+  page.find('div.navigate-down').click
+  sleep 1
+  page.all("div.slides section audio").length.should == 1
+  page.find('div.navigate-down').click
+  sleep 1
+  page.all("div.slides section audio").length.should == 1
 end

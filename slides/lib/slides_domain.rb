@@ -1,9 +1,9 @@
 module Slides
   class SlidesDomain
-    def self.create(data)
+    def self.create(notes)
       slides = Slides.new
-      data.each do |note|
-        slides.add_with(note.getTitle, note.getContent, note.getImages)
+      notes.each do |note|
+        slides.add_with(note)
       end
       slides
     end
