@@ -14,9 +14,9 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="../css/bootstrap.css" id="theme">
+		<link rel="stylesheet" href="../css/bootstrap.css" id="bootstrap-theme">
 		<link rel="stylesheet" href="../css/reveal.min.css">
-		<link rel="stylesheet" href="../css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="../css/theme/default.css" id="reveal-theme">
 
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
@@ -29,34 +29,26 @@
     		<a class="brand" href="/">
     			<img src='img/notes2reveallogo.png' class='logo' alt='notes to reveal.js logo'/>
     		</a>
-    		<form class="navbar-form pull-left">
-  				<select class="span2">
+    		<form class="navbar-form pull-right form-inline" >
+    			<label>select reveal theme</label>
+  				<select class="span2" id="theme-select">
   					<option>default</option>
   					<option>sky</option>
   					<option>beige</option>
   					<option>simple</option>
   					<option>serif</option>
   					<option>night</option>
+  					<option>moon</option>
+  					<option>solarized</option>
   				</select>
-				</form>
+			</form>
   		</div>
   	</div>
-  		<!--div class="span10">
-	    	<h1 class="text-center name">
-	    		<span class='notes'>notes</span>
-	    		<span class='to'> to </span>
-	    		<span class='reveal'>reveal.js</span>
-	    	</h1>
-  		</div>
-		</div-->
-		<div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="reveal">
 			<div class="slides">
 				<%= yield %>
-
 			</div>
-
 		</div>
 
 	  <script>
@@ -67,7 +59,16 @@
 				$(this).attr('data-autoplay', true);
 				$(this).attr('width', '100%');
 				$(this).attr('heigth', '100%');
-			})
+			});
+
+			var changeTheme = function() {
+				var newtheme = '../css/theme/' + $(this).val() + '.css'
+				$('#reveal-theme').attr('href', newtheme);
+				$('#theme-select').blur();
+			};
+
+			$('#theme-select').bind('change', changeTheme);
+
 	  	};
 	  </script>
 
