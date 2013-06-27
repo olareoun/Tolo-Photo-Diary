@@ -179,7 +179,7 @@ end
 Then(/^no vertical slide for content is generated$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 1
+  page.all("div.slides section", :visible => false).length.should == 2
 end
 
 When(/^I create a presentation from a notebook with a note and a image$/) do
@@ -191,7 +191,7 @@ end
 Then(/^I can see the image in the third vertical position$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 4
+  page.all("div.slides section", :visible => false).length.should == 3
   page.find('div.navigate-down').click
   sleep 1
   page.find('div.navigate-down').click
@@ -208,7 +208,7 @@ end
 Then(/^I can see consecutive vertical slides$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 5
+  page.all("div.slides section", :visible => false).length.should == 4
   page.find('div.navigate-down').click
   sleep 1
   page.find('div.navigate-down').click
@@ -240,7 +240,7 @@ end
 Then(/^I can see the audio in the third vertical position$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 4
+  page.all("div.slides section", :visible => false).length.should == 3
   page.find('div.navigate-down').click
   sleep 1
   page.find('div.navigate-down').click
@@ -257,7 +257,7 @@ end
 Then(/^I can see the audios in consecutive vertical slides$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 5
+  page.all("div.slides section", :visible => false).length.should == 4
   page.find('div.navigate-down').click
   sleep 1
   page.find('div.navigate-down').click

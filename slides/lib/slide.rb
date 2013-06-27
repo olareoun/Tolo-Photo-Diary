@@ -1,5 +1,9 @@
+require 'crafty'
+
 module Slides
 	class Slide
+
+		include Crafty::HTML::All
 
 		EN_NOTE_EMPTY_CONTENT = '<en-note><div><br clear="none"/></div></en-note>'
 
@@ -33,30 +37,63 @@ module Slides
 		end
 
 		def to_html
-			html = ''
-			html += '<section>' if composed
-			html += '<section><h1>' + @title + '</h1></section>' unless !hasTitle
-			html += '<section><p>' + @content + '</p></section>' unless !hasContent
-			html += renderImages unless @images.nil?
-			html += renderAudio unless @audio.nil?
-			html += '</section>' if composed
-			html
+			section do
+				renderTitle if hasTitle
+				renderContent if hasContent
+				renderImages
+				renderAudios
+			end
 		end
 
-		def renderAudio
-			rendered = ''
-			@audio.each do |audio|
-				rendered += '<section>' + audio.name + '<div><audio controls data-autoplay><source src="data:' + audio.mimeType + ';base64,' + Base64.encode64(audio.bin) + '" type="' + audio.mimeType + '"></audio></div></section>'
+		def renderContent
+			if hasContent
+				section do
+					p do
+						@content
+					end
+				end
 			end
-			rendered
+		end
+
+		def renderTitle
+			if hasTitle 
+				section do
+					h1 do
+						@title
+					end
+				end
+			end
+		end
+
+		def renderAudios
+			return if @audio.nil?
+			@audio.each do |audio|
+				renderAudio audio
+			end
 		end
 
 		def renderImages
-			rendered = ''
+			return if @images.nil?
 			@images.each do |image|
-				rendered += '<section><img src="data:' + image.mimeType + ';base64,' + Base64.encode64(image.bin) + '" width="600" heigth="500"/></section>'
+				renderImage image
 			end
-			rendered
+		end
+
+		def renderImage(image)
+			src = 'data:' + image.mimeType + ';base64,' + Base64.encode64(image.bin)
+			section do
+				img src: [src] do
+				end
+			end
+		end
+
+		def renderAudio(audio)
+			src = 'data:' + audio.mimeType + ';base64,' + Base64.encode64(audio.bin)
+			section do
+				audio do
+					source src: [src], type: [audio.mimeType]
+				end
+			end
 		end
 
 		def composed
@@ -69,6 +106,7 @@ module Slides
 
  		def hasContent
  			@content = @content.gsub(EN_NOTE_EMPTY_CONTENT, '') if !@content.nil?
+ 			@content = @content.gsub(%r{</?[^>]+?>}, '') if !@content.nil?
  			!@content.nil? && !@content.empty?
  		end
 

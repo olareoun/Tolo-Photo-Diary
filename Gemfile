@@ -4,6 +4,7 @@ gem "sinatra-contrib"
 gem "json"
 gem "rake"
 gem "evernote_oauth"
+gem "crafty"
 
 
 #bundle install --without test development

@@ -46,21 +46,21 @@ describe 'Slide' do
 		end
 
 		it 'when empty' do
-			Slides::Slide.new.to_html.should == ''
+			Slides::Slide.new.to_html.should == '<section></section>'
 		end
 
 		it 'when has just title' do
 			slide = Slides::Slide.new
 
 			slide.entitle('my title')
-			slide.to_html.should == '<section><h1>my title</h1></section>'
+			slide.to_html.should == '<section><section><h1>my title</h1></section></section>'
 		end
 
 		it 'when has just body' do
 			slide = Slides::Slide.new
 
 			slide.putContent('some content')
-			slide.to_html.should == '<section><p>some content</p></section>'
+			slide.to_html.should == '<section><section><p>some content</p></section></section>'
 		end
 	end
 
