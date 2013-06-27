@@ -74,6 +74,20 @@ label{
 	color: #656959;
 }
 
+.navbar label{
+	text-align: bottom;
+	font-size: 15px;
+	font-style: italic;
+	font-weight: bold;
+	color: #656959;
+}
+
+select{
+	font-size: 15px;
+	font-style: italic;
+	color: #656959;
+}
+
 #publicUrl, #publicUrl:focus{
 	background-color: #F5F7E7;
 	width: 600px;
