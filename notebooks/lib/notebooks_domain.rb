@@ -1,6 +1,6 @@
-require_relative 'evernote_helper'
+require_relative '../../evernote/lib/evernote_helper'
 require_relative 'notebook'
-require_relative 'public_url'
+require_relative '../../evernote/lib/public_url'
 
 module Notebooks
 	class NotebooksDomain

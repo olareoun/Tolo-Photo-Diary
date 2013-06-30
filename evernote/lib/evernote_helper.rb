@@ -1,5 +1,5 @@
 require_relative "./evernote_config"
-require_relative "./note"
+require_relative "../../notebooks/lib/note"
 
 class EvernoteHelper
 

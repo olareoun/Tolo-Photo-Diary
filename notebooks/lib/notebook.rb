@@ -1,5 +1,3 @@
-require_relative "./evernote_helper"
-
 module Notebooks
 	class Notebook
 		def initialize(name, notes)

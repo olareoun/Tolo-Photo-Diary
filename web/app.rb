@@ -2,8 +2,8 @@ require 'sinatra/base'
 
 require_relative 'notebook_2_reveal_domain'
 require_relative 'lib/notifier'
-require_relative '../notebooks/lib/bad_argument_exception'
-require_relative '../notebooks/lib/bad_public_notebook_url_exception'
+require_relative '../evernote/lib/bad_argument_exception'
+require_relative '../evernote/lib/bad_public_notebook_url_exception'
 
 class Web < Sinatra::Base
   set :public_folder, './web/public'
