@@ -5,7 +5,7 @@ Feature: arrage linear order
 
 Background:
 	Given I am in notes2reveal
-	And I got an evernote public notebook url
+	When I insert the evernote public notebook url
 
 Scenario: list with the titles of my notes
 	When I go to arrange

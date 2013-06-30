@@ -9,46 +9,79 @@ PNG_IMAGE_URL = 'https://sandbox.evernote.com/pub/olareoun/png-image'
 AUDIO_URL = 'https://sandbox.evernote.com/pub/olareoun/audio'
 AUDIOS_URL = 'https://sandbox.evernote.com/pub/olareoun/audios'
 
+NOTEBOOKS = {
+  'non evernote public notebook' => 'wwww.notevernotedomain.com/pub/xaviuzz/tal',
+  'empty url' => '',
+  'evernote public notebook' => ARRANGE_SANDBOX_URL,
+  'evernote notebook' => EVERNOTE_URL,
+  'sandbox notebook' => SANDBOX_URL,
+  'notebook with a note and several audio files' => AUDIOS_URL,
+  'notebook with a note and a audio' => AUDIO_URL,
+  'notebook with a note and a png image' => PNG_IMAGE_URL,
+  'notebook with a note and a gif image' => GIF_IMAGE_URL,
+  'notebook with a note and several images' => IMAGES_URL,
+  'notebook with a note and a image' => IMAGE_URL,
+  'notebook with a note with just title' => JUST_TITLE
+}
+
 Given /^I am in notes2reveal$/ do
   visit 'http://localhost:3000/'
 end
 
-Given(/^I got an empty url$/) do
-  @url = ''
+Given(/^I am in the arrange page$/) do
+  step "I go to arrange"
 end
 
-Given(/^I got a non evernote public notebook url$/) do
-  fill_in('publicUrl', :with => 'wwww.notevernotedomain.com/pub/xaviuzz/tal')
-end
-
-Given(/^I got an evernote public notebook url$/) do
-  fill_in('publicUrl', :with => ARRANGE_SANDBOX_URL)
-end
-
-When(/^I go to arrange$/) do
-  find('#submit').click
-end
-
-When(/^I send it to the notes2reveal$/) do
-  find('#submit').click
-end
-
-When(/^I create a presentation from evernote$/) do
-  fill_in('publicUrl', :with => EVERNOTE_URL)
-  find('#submit').click
-  find('#generate').click
-end
-
-When(/^I create a presentation from sandbox$/) do
-  fill_in('publicUrl', :with => SANDBOX_URL)
-  find('#submit').click
-  find('#generate').click
+Given(/^I change the order of the slides$/) do
+  page.execute_script('$("#sortable li").sort(function(a, b){return ($(b).text()) > ($(a).text());}).appendTo("#sortable")')
+  page.execute_script('$("#sortable").trigger("sortupdate")')
+  page.evaluate_script("$('#sortable').sortable('toArray').toString()").empty?.should be_false
 end
 
 When(/^I look for an alert$/) do
 end
 
 When(/^I look for a field to insert a public evernote url$/) do
+end
+
+When(/^I try to create a presentation from a (.*)$/) do |notebook|
+  step "I arrange a presentation from a #{notebook}"
+end
+
+When(/^I create a presentation from a (.*)$/) do |notebook|
+  step "I arrange a presentation from a #{notebook}"
+  step "I generate the presentation"
+end
+
+When(/^I arrange a presentation from a (.*)$/) do |notebook|
+  step "I insert the #{notebook} url"
+  step "I go to arrange"
+end
+
+When(/^I insert the (.*?) url$/) do |arg1|
+  fill_in('publicUrl', :with => NOTEBOOKS[arg1])
+end
+
+When "I go to arrange" do
+  find('#submit').click
+end
+
+When "I generate the presentation" do
+  find('#generate').click
+end
+
+When(/^I send it to generate$/) do
+  find('#generate').click
+end
+
+Then "I click down button" do
+  page.find('div.navigate-down.enabled').click
+  sleep 1
+end
+
+Then "I click right button" do
+  page.find('div.navigate-right.enabled').click
+  sleep 1
 end
 
 Then(/^I got a reveal presentation with my notes$/) do
@@ -90,8 +123,7 @@ Then(/^first title matches first note title$/) do
 end
 
 Then(/^second title matches second note title$/) do
-  page.find('div.navigate-right').click
-  sleep 1
+  step "I click right button"
   page.first("div.slides section h1").text.should == 'primera nota del publico'.upcase
 end
 
@@ -103,14 +135,12 @@ Then(/^first title matches first note title in evernote$/) do
 end
 
 Then(/^second title matches second note title in evernote$/) do
-  page.find('div.navigate-right').click
-  sleep 1
+  step "I click right button"
   page.first("div.slides section h1").text.should == 'nana'.upcase
 end
 
 Then(/^third title matches third note title in evernote$/) do
-  page.find('div.navigate-right').click
-  sleep 1
+  step "I click right button"
   page.first("div.slides section h1").text.should == 'otra nota'.upcase
 end
 
@@ -131,49 +161,21 @@ Then(/^I have a button to generate presentation$/) do
   page.find('button#generate').should be_true
 end
 
-Given(/^I am in the arrange page$/) do
-  find('#submit').click
-end
-
-Given(/^I change the order of the slides$/) do
-  page.execute_script('$("#sortable li").sort(function(a, b){return ($(b).text()) > ($(a).text());}).appendTo("#sortable")')
-  page.execute_script('$("#sortable").trigger("sortupdate")')
-  page.evaluate_script("$('#sortable').sortable('toArray').toString()").empty?.should be_false
-end
-
-When(/^I send it to generate$/) do
-  find('#generate').click
-end
-
 Then(/^the slides are generated in that order$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
   page.all("div.slides section", :visible => false).length.should == 12
   page.first("div.slides section h1").text.should == 'nota4'.upcase
-  page.find('div.navigate-right').click
-  sleep 1
+  step "I click right button"
   page.first("div.slides section h1").text.should == 'nota3'.upcase
-  page.find('div.navigate-right').click
-  sleep 1
+  step "I click right button"
   page.first("div.slides section h1").text.should == 'nota2'.upcase
-  page.find('div.navigate-right').click
-  sleep 1
+  step "I click right button"
   page.first("div.slides section h1").text.should == 'nota1'.upcase
-end
-
-When(/^I click down button$/) do
-  page.find('div.navigate-down.enabled').click
-  sleep 1
 end
 
 Then(/^I should see the content of the note$/) do
   page.first("div.slides section section").text.should == 'contenido de la segunda nota del publico'
-end
-
-When(/^I create a presentation from evernote with a note with just title$/) do
-  fill_in('publicUrl', :with => JUST_TITLE)
-  find('#submit').click
-  find('#generate').click
 end
 
 Then(/^no vertical slide for content is generated$/) do
@@ -182,88 +184,39 @@ Then(/^no vertical slide for content is generated$/) do
   page.all("div.slides section", :visible => false).length.should == 2
 end
 
-When(/^I create a presentation from a notebook with a note and a image$/) do
-  fill_in('publicUrl', :with => IMAGE_URL)
-  find('#submit').click
-  find('#generate').click
-end
-
 Then(/^I can see the image in the third vertical position$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
   page.all("div.slides section", :visible => false).length.should == 3
-  page.find('div.navigate-down').click
-  sleep 1
-  page.find('div.navigate-down').click
-  sleep 1
+  step "I click down button"
   page.all("div.slides section img").length.should == 1
-end
-
-When(/^I create a presentation from a notebook with a note and several images$/) do
-  fill_in('publicUrl', :with => IMAGES_URL)
-  find('#submit').click
-  find('#generate').click
 end
 
 Then(/^I can see consecutive vertical slides$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
   page.all("div.slides section", :visible => false).length.should == 4
-  page.find('div.navigate-down').click
-  sleep 1
-  page.find('div.navigate-down').click
-  sleep 1
+  step "I click down button"
   page.all("div.slides section img").length.should == 1
-  page.find('div.navigate-down').click
-  sleep 1
+  step "I click down button"
   page.all("div.slides section img").length.should == 1
-end
-
-When(/^I create a presentation from a notebook with a note and a gif image$/) do
-  fill_in('publicUrl', :with => GIF_IMAGE_URL)
-  find('#submit').click
-  find('#generate').click
-end
-
-When(/^I create a presentation from a notebook with a note and a png image$/) do
-  fill_in('publicUrl', :with => PNG_IMAGE_URL)
-  find('#submit').click
-  find('#generate').click
-end
-
-When(/^I create a presentation from a notebook with a note and a audio$/) do
-  fill_in('publicUrl', :with => AUDIO_URL)
-  find('#submit').click
-  find('#generate').click
 end
 
 Then(/^I can see the audio in the third vertical position$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
   page.all("div.slides section", :visible => false).length.should == 3
-  page.find('div.navigate-down').click
-  sleep 1
-  page.find('div.navigate-down').click
-  sleep 1
+  step "I click down button"
   page.all("div.slides section audio").length.should == 1
-end
-
-When(/^I create a presentation from a notebook with a note and several audio files$/) do
-  fill_in('publicUrl', :with => AUDIOS_URL)
-  find('#submit').click
-  find('#generate').click
 end
 
 Then(/^I can see the audios in consecutive vertical slides$/) do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
   page.all("div.slides section", :visible => false).length.should == 4
-  page.find('div.navigate-down').click
-  sleep 1
-  page.find('div.navigate-down').click
-  sleep 1
+  step "I click down button"
   page.all("div.slides section audio").length.should == 1
-  page.find('div.navigate-down').click
-  sleep 1
+  step "I click down button"
   page.all("div.slides section audio").length.should == 1
 end
+

@@ -12,14 +12,12 @@ Scenario:
 	Then I can not see any alert
 
 Scenario:
-	Given I got an empty url
-    When I send it to the notes2reveal
+	When I try to create a presentation from a empty
     Then I get back to the form
     And I see an alert message "We need a public evernote notebook url to make your presentation."
 
 Scenario:
-	Given I got a non evernote public notebook url
-    When I send it to the notes2reveal
+	When I try to create a presentation from a non evernote public notebook
     Then I get back to the form
     And I see an alert message "We can not do a presentation with a non evernote public notebook url."
 
@@ -28,16 +26,16 @@ Scenario: There is a form where i can paste a public notebook URL
 	Then I can see it
 
 Scenario: Every slide uses the note title as title
-	When I create a presentation from sandbox
+	When I create a presentation from a sandbox notebook
 	Then first title matches first note title
 	And second title matches second note title
 
 Scenario: Every slide uses the note title as title
-	When I create a presentation from evernote
+	When I create a presentation from a evernote notebook
 	Then first title matches first note title in evernote
 	And second title matches second note title in evernote
 	And third title matches third note title in evernote
 
 Scenario: Do not generate vertical content slide when note content empty
-	When I create a presentation from evernote with a note with just title
+	When I create a presentation from a notebook with a note with just title
 	Then no vertical slide for content is generated
