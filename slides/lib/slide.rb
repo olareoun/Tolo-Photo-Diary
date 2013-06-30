@@ -15,7 +15,7 @@ module Slides
 		end
 
 		def putContent aContent
-			@content = aContent
+ 			@content = aContent.gsub(%r{</?[^>]+?>}, '') if !aContent.nil?
 		end
 
 		def putImages images
@@ -103,7 +103,6 @@ module Slides
  		end
 
  		def hasContent
- 			@content = @content.gsub(%r{</?[^>]+?>}, '') if !@content.nil?
  			!@content.nil? && !@content.empty?
  		end
 
