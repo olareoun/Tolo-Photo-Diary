@@ -1,3 +1,5 @@
+require_relative 'slides'
+
 module Slides
   class SlidesDomain
     def self.create(notes)

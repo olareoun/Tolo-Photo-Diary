@@ -1,16 +1,15 @@
 require 'sinatra/base'
-require 'evernote_oauth'
 
-require_relative '../slides/lib/slide'
-require_relative '../slides/lib/slides'
-require_relative '../slides/lib/slides_domain'
-require_relative '../notebooks/lib/notebooks_domain'
+require_relative 'notebook_2_reveal_domain'
 require_relative 'lib/notifier'
-require_relative 'lib/bad_argument_exception'
+require_relative '../notebooks/lib/bad_argument_exception'
+require_relative '../notebooks/lib/bad_public_notebook_url_exception'
 
 class Web < Sinatra::Base
   set :public_folder, './web/public'
   set :static, true
+
+  domain = Notebook2RevealDomain.new
 
   get '/index.html' do
     erb :index , :layout => :home_layout
@@ -24,7 +23,7 @@ class Web < Sinatra::Base
   post '/arrange' do
     begin
       @publicUrl = params['publicUrl']
-      @notes = getNotes(params['publicUrl'])
+      @notes = domain.getNotes(@publicUrl)
       erb :arrange , :layout => :home_layout
     rescue BadArgumentException => e
       redirect '/?alert_signal=' + e.exception_key
@@ -36,8 +35,7 @@ class Web < Sinatra::Base
   post '/generate' do
     begin
       sortedIds = getSortedIds(params['sortedIdsStr'])
-      notes = getNotes(params['publicUrl'], sortedIds)
-      @slides = Slides::SlidesDomain.create(notes)
+      @slides = domain.createSlides(params['publicUrl'], sortedIds)
       erb :presentation , :layout => :reveal_js
     rescue BadArgumentException => e
       redirect '/?alert_signal=' + e.exception_key
@@ -49,15 +47,6 @@ class Web < Sinatra::Base
   def getSortedIds(sortedIdsStr)
     return sortedIdsStr.split(',') unless sortedIdsStr.nil?
     []
-  end
-
-  def getNotes(url, sortedIds = nil)
-      if url.nil? || url.empty?
-        raise BadArgumentException, 'empty.url'
-      else
-        notes = Notebooks::NotebooksDomain.get(url, sortedIds).getNotes
-      end
-      notes
   end
 
 end

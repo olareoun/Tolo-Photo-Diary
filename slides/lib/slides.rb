@@ -1,3 +1,5 @@
+require_relative 'slide'
+
 module Slides
 	class Slides
 
