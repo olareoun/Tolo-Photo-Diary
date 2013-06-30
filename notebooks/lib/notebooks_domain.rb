@@ -2,7 +2,6 @@ require 'evernote_oauth'
 
 require_relative 'evernote_helper'
 require_relative 'notebook'
-require_relative 'extractor'
 require_relative 'public_url'
 
 module Notebooks

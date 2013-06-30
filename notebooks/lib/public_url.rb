@@ -1,4 +1,5 @@
 require_relative 'bad_argument_exception'
+require_relative 'extractor'
 
 module Notebooks
 	class PublicUrl
