@@ -1,34 +1,42 @@
-require_relative "./evernote_config"
-require_relative "../../notebooks/lib/note"
+require_relative "evernote_config"
+require_relative 'public_url'
 
 class EvernoteHelper
 
-	def self.getNotebook(url, sortedIds = nil)
-	    user_info = getUserInfo(url.user_name, url.host)
-	    note_store = getNotestore(user_info, url.host)
+	def initialize(publicUrl)
+		@url = PublicUrl.new publicUrl
+	end
+
+	def getNotebook(sortedIds = nil)
+	    user_info = getUserInfo(@url.user_name, @url.host)
+	    note_store = getNotestore(user_info, @url.host)
 	    if sortedIds.nil?
-		    getNotebookNotes(user_info, note_store, url.notebook_name)
+		    getNotebookNotes(user_info, note_store, @url.notebook_name)
 		else
 		    getNotes(note_store, sortedIds)
 		end
 	end
 
+	def getNotebookName
+		@url.notebook_name
+	end
+
 	private
 
-	  def self.getNotebookNotes(user_info, note_store, notebook_name)
+	  def getNotebookNotes(user_info, note_store, notebook_name)
 		notes_metadata = getNotesMetadata(user_info, note_store, notebook_name)
 		ids = notes_metadata.notes.map(&:guid)
 		getNotes(note_store, ids)
 	  end
 
-	  def self.getNotes(note_store, ids)
+	  def getNotes(note_store, ids)
 		notes = ids.map do |noteId|
-		 Notebooks::Note.new note_store.getNote('', noteId, true, true, false, false)
+		 note_store.getNote('', noteId, true, true, false, false)
 		end
 		notes
 	  end
 
-	  def self.getUserInfo(user_name, host)
+	  def getUserInfo(user_name, host)
 	    userStoreUrl = host + "/edam/user"
 	    userStoreTransport = Thrift::HTTPClientTransport.new(userStoreUrl)
 	    userStoreProtocol = Thrift::BinaryProtocol.new(userStoreTransport)
@@ -36,7 +44,7 @@ class EvernoteHelper
 	    userStore.getPublicUserInfo(user_name)
 	  end
 
-	  def self.getNotestore(user_info, host)
+	  def getNotestore(user_info, host)
 	  	sharedId = user_info.shardId
 	    noteStoreTransport = Thrift::HTTPClientTransport.new(host + "/shard/" + sharedId + "/notestore")
 	    noteStoreProtocol = Thrift::BinaryProtocol.new(noteStoreTransport)
@@ -44,7 +52,7 @@ class EvernoteHelper
 	    noteStore
 	  end
 
-	  def self.getNotesMetadata(user_info, note_store, notebook_name)
+	  def getNotesMetadata(user_info, note_store, notebook_name)
 	    public_notebook = note_store.getPublicNotebook(user_info.userId, notebook_name)
 	    filter = Evernote::EDAM::NoteStore::NoteFilter.new
 	    filter.notebookGuid = public_notebook.guid

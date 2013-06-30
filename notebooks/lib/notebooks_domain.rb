@@ -1,13 +1,14 @@
 require_relative '../../evernote/lib/evernote_helper'
 require_relative 'notebook'
-require_relative '../../evernote/lib/public_url'
+require_relative 'note'
 
 module Notebooks
 	class NotebooksDomain
 		def self.get(publicUrl, sortedIds = nil)
-			url = PublicUrl.new publicUrl
-			notes = EvernoteHelper.getNotebook(url, sortedIds)
-			Notebook.new url.notebook_name, notes
+			evernoteHelper = EvernoteHelper.new publicUrl
+			evernoteNotes = evernoteHelper.getNotebook(sortedIds)
+			notes = evernoteNotes.map {|evernoteNote| Notebooks::Note.new evernoteNote}
+			Notebook.new evernoteHelper.getNotebookName, notes
 		end
 	end
 end
