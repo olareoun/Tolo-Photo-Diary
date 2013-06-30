@@ -28,6 +28,6 @@ describe 'Note' do
 		evnote.content = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd"><en-note><div><br clear="none"/></div></en-note>'
 		note = Notebooks::Note.new(evnote)
 		note.getTitle().should == 'title'
-		note.getContent().should == '<en-note><div><br clear="none"/></div></en-note>'
+		note.getContent().should == '<div><br clear="none"/></div>'
 	end
 end

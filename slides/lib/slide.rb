@@ -5,8 +5,6 @@ module Slides
 
 		include Crafty::HTML::All
 
-		EN_NOTE_EMPTY_CONTENT = '<en-note><div><br clear="none"/></div></en-note>'
-
 		attr_accessor :title, :content
 
 		def initialize 
@@ -105,7 +103,6 @@ module Slides
  		end
 
  		def hasContent
- 			@content = @content.gsub(EN_NOTE_EMPTY_CONTENT, '') if !@content.nil?
  			@content = @content.gsub(%r{</?[^>]+?>}, '') if !@content.nil?
  			!@content.nil? && !@content.empty?
  		end
