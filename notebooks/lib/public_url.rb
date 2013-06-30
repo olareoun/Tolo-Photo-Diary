@@ -1,3 +1,5 @@
+require 'evernote_oauth'
+
 require_relative 'bad_argument_exception'
 require_relative 'extractor'
 
