@@ -1,4 +1,3 @@
-@wip
 Feature: audio support
   As Victor
   I want audio support

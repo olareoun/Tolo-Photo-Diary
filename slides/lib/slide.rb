@@ -35,7 +35,7 @@ module Slides
 		end
 
 		def to_html
-			section do
+			section class: ['n2e-slide-horizontal'] do
 				renderTitle if hasTitle
 				renderContent if hasContent
 				renderImages
@@ -45,7 +45,7 @@ module Slides
 
 		def renderContent
 			if hasContent
-				section do
+				section class: ['n2e-slide-content'] do
 					p do
 						@content
 					end
@@ -55,7 +55,7 @@ module Slides
 
 		def renderTitle
 			if hasTitle 
-				section do
+				section class: ['n2e-slide-title'] do
 					h1 do
 						@title
 					end
@@ -93,10 +93,6 @@ module Slides
 				end
 			end
 		end
-
-		def composed
-			hasTitle && hasContent
- 		end
 
  		def hasTitle
  			!@title.nil? && !@title.empty?

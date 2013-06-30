@@ -84,12 +84,14 @@ Then "I click right button" do
   sleep 1
 end
 
-Then(/^I got a reveal presentation with my notes$/) do
+Then "presentation has been created" do
   page.has_css?("div.reveal").should be_true
   page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 9
-  page.first("div.slides section h1").text.should == 'a title'.upcase
-  page.first("div.slides section p").text.should == 'some content'
+end
+
+Then(/^I should get a presentation with (\d+) horizontal slides$/) do |arg1|
+  step "presentation has been created"
+  page.all("div.slides section.n2e-slide-horizontal", :visible => false).length.should == 2
 end
 
 Then(/^I get back to the form$/) do
@@ -105,43 +107,33 @@ Then(/^I can not see any alert$/) do
   page.has_css?("div.alert").should be_false
 end
 
-Then(/^I got a reveal presentation with no empty notes$/) do
-  page.has_css?("div.reveal").should be_true
-  page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 6
-end
-
 Then(/^I can see it$/) do
   page.find('#publicUrl').should be_true
 end
 
 Then(/^first title matches first note title$/) do
-  page.has_css?("div.reveal").should be_true
-  page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 6
-  page.first("div.slides section h1").text.should == 'segunda nota del publico'.upcase
+  step "presentation has been created"
+  page.first("div.slides section .n2e-slide-title").text.should == 'segunda nota del publico'.upcase
 end
 
 Then(/^second title matches second note title$/) do
   step "I click right button"
-  page.first("div.slides section h1").text.should == 'primera nota del publico'.upcase
+  page.first("div.slides section .n2e-slide-title").text.should == 'primera nota del publico'.upcase
 end
 
 Then(/^first title matches first note title in evernote$/) do
-  page.has_css?("div.reveal").should be_true
-  page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 9
-  page.first("div.slides section h1").text.should == 'nota solo texto'.upcase
+  step "presentation has been created"
+  page.first("div.slides section .n2e-slide-title").text.should == 'nota solo texto'.upcase
 end
 
 Then(/^second title matches second note title in evernote$/) do
   step "I click right button"
-  page.first("div.slides section h1").text.should == 'nana'.upcase
+  page.first("div.slides section .n2e-slide-title").text.should == 'nana'.upcase
 end
 
 Then(/^third title matches third note title in evernote$/) do
   step "I click right button"
-  page.first("div.slides section h1").text.should == 'otra nota'.upcase
+  page.first("div.slides section .n2e-slide-title").text.should == 'otra nota'.upcase
 end
 
 Then(/^I can see a list with the titles of my notes$/) do
@@ -162,40 +154,34 @@ Then(/^I have a button to generate presentation$/) do
 end
 
 Then(/^the slides are generated in that order$/) do
-  page.has_css?("div.reveal").should be_true
-  page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 12
-  page.first("div.slides section h1").text.should == 'nota4'.upcase
+  step "presentation has been created"
+  page.all("div.slides .n2e-slide-title", :visible => false).length.should == 4
+  page.first("div.slides section .n2e-slide-title").text.should == 'nota4'.upcase
   step "I click right button"
-  page.first("div.slides section h1").text.should == 'nota3'.upcase
+  page.first("div.slides section .n2e-slide-title").text.should == 'nota3'.upcase
   step "I click right button"
-  page.first("div.slides section h1").text.should == 'nota2'.upcase
+  page.first("div.slides section .n2e-slide-title").text.should == 'nota2'.upcase
   step "I click right button"
-  page.first("div.slides section h1").text.should == 'nota1'.upcase
+  page.first("div.slides section .n2e-slide-title").text.should == 'nota1'.upcase
 end
 
 Then(/^I should see the content of the note$/) do
-  page.first("div.slides section section").text.should == 'contenido de la segunda nota del publico'
+  page.first("div.slides .n2e-slide-content").text.should == 'contenido de la segunda nota del publico'
 end
 
 Then(/^no vertical slide for content is generated$/) do
-  page.has_css?("div.reveal").should be_true
-  page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 2
+  step "presentation has been created"
+  page.all("div.slides .n2e-slide-content", :visible => false).length.should == 0
 end
 
 Then(/^I can see the image in the third vertical position$/) do
-  page.has_css?("div.reveal").should be_true
-  page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 3
+  step "presentation has been created"
   step "I click down button"
   page.all("div.slides section img").length.should == 1
 end
 
 Then(/^I can see consecutive vertical slides$/) do
-  page.has_css?("div.reveal").should be_true
-  page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 4
+  step "presentation has been created"
   step "I click down button"
   page.all("div.slides section img").length.should == 1
   step "I click down button"
@@ -203,17 +189,13 @@ Then(/^I can see consecutive vertical slides$/) do
 end
 
 Then(/^I can see the audio in the third vertical position$/) do
-  page.has_css?("div.reveal").should be_true
-  page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 3
+  step "presentation has been created"
   step "I click down button"
   page.all("div.slides section audio").length.should == 1
 end
 
 Then(/^I can see the audios in consecutive vertical slides$/) do
-  page.has_css?("div.reveal").should be_true
-  page.has_css?("div.slides").should be_true
-  page.all("div.slides section", :visible => false).length.should == 4
+  step "presentation has been created"
   step "I click down button"
   page.all("div.slides section audio").length.should == 1
   step "I click down button"

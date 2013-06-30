@@ -25,6 +25,11 @@ Scenario: There is a form where i can paste a public notebook URL
 	When I look for a field to insert a public evernote url
 	Then I can see it
 
+@wip
+Scenario: Right amount of horizontal slides
+	When I create a presentation from a sandbox notebook
+	Then I should get a presentation with 2 horizontal slides
+
 Scenario: Every slide uses the note title as title
 	When I create a presentation from a sandbox notebook
 	Then first title matches first note title
