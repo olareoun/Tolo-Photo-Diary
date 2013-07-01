@@ -16,7 +16,6 @@ module Slides
 		end
 
 		def putContent aContent
- 			# @content = aContent.gsub(%r{</?[^>]+?>}, '') unless aContent.nil?
  			@content = aContent
 		end
 
@@ -59,7 +58,7 @@ module Slides
 		def renderTitle
 			if hasTitle 
 				section class: ['n2e-slide-title'] do
-					h1 do
+					h1 class: ['overflow'] do
 						@title
 					end
 				end
@@ -102,7 +101,11 @@ module Slides
  		end
 
  		def hasContent
- 			!@content.nil? && !@content.empty? && !@content.gsub(%r{</?[^>]+?>}, '').empty?
+ 			!@content.nil? && !@content.empty? && !contentWithoutHtmlTags.empty?
+ 		end
+
+ 		def contentWithoutHtmlTags
+ 			@content.gsub(%r{</?[^>]+?>}, '')
  		end
 
 		def empty?

@@ -42,7 +42,7 @@ describe 'Slide' do
 			slide = Slides::Slide.new
 			slide.entitle('my title')
 			slide.putContent('some content')
-			slide.to_html.should == '<section class="n2e-slide-horizontal"><section class="n2e-slide-title"><h1>my title</h1></section><section class="n2e-slide-content"><p>some content</p></section></section>'
+			slide.to_html.should == '<section class="n2e-slide-horizontal"><section class="n2e-slide-title"><h1 class="overflow">my title</h1></section><section class="n2e-slide-content"><p>some content</p></section></section>'
 		end
 
 		it 'when empty' do
@@ -53,7 +53,7 @@ describe 'Slide' do
 			slide = Slides::Slide.new
 
 			slide.entitle('my title')
-			slide.to_html.should == '<section class="n2e-slide-horizontal"><section class="n2e-slide-title"><h1>my title</h1></section></section>'
+			slide.to_html.should == '<section class="n2e-slide-horizontal"><section class="n2e-slide-title"><h1 class="overflow">my title</h1></section></section>'
 		end
 
 		it 'when has just body' do

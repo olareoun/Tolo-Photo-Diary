@@ -147,7 +147,7 @@ select{
   height: 34px;
   margin: 10px 20px;
   padding: 15px;
-
+  overflow: hidden;
 }
 
 #sortable li span {
@@ -165,4 +165,10 @@ p.lead{
 	font-style: italic;
 	font-weight: bold;
 	color: #656959;
+}
+
+.overflow{
+    overflow: hidden;
+    width: 100%; /* Takes up the whole width of the slide */
+    height: 500px; /* 100% doesn't work here, 400px seems to work well with almost every resolution. */
 }
