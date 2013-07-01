@@ -45,8 +45,8 @@ class Web < Sinatra::Base
   end
 
   def getSortedIds(sortedIdsStr)
-    return sortedIdsStr.split(',') unless sortedIdsStr.nil?
-    []
+    return [] if sortedIdsStr.nil?
+    sortedIdsStr.split(',')
   end
 
 end

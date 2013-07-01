@@ -1,5 +1,6 @@
 require 'rspec'
 require 'crafty'
+require 'htmlentities'
 
 include Crafty::HTML::All
 
@@ -21,6 +22,16 @@ describe 'Crafty' do
 			renderAudio
 		end
 		html.should == '<section><section><audio></audio></section><section><audio></audio></section><section><audio></audio></section></section>'
+	end
+
+	it 'escapes chars' do
+		decoder = HTMLEntities.new
+		text = '<div><a href="www.google.es">www.google.es</a>'
+		html = div do
+			text
+		end
+		puts decoder.decode(html)
+		decoder.decode(html).should == '<div><div><a href="www.google.es">www.google.es</a></div>'
 	end
 
 end
