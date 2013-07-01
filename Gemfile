@@ -5,6 +5,7 @@ gem "json"
 gem "rake"
 gem "evernote_oauth"
 gem "crafty"
+gem "htmlentities"
 
 
 #bundle install --without test development

@@ -1,4 +1,5 @@
 require 'crafty'
+require 'htmlentities'
 
 module Slides
 	class Slide
@@ -15,7 +16,8 @@ module Slides
 		end
 
 		def putContent aContent
- 			@content = aContent.gsub(%r{</?[^>]+?>}, '') if !aContent.nil?
+ 			# @content = aContent.gsub(%r{</?[^>]+?>}, '') unless aContent.nil?
+ 			@content = aContent
 		end
 
 		def putImages images
@@ -35,12 +37,13 @@ module Slides
 		end
 
 		def to_html
-			section class: ['n2e-slide-horizontal'] do
+			html = section class: ['n2e-slide-horizontal'] do
 				renderTitle if hasTitle
 				renderContent if hasContent
 				renderImages
 				renderAudios
 			end
+			HTMLEntities.new.decode(html)
 		end
 
 		def renderContent
@@ -99,7 +102,7 @@ module Slides
  		end
 
  		def hasContent
- 			!@content.nil? && !@content.empty?
+ 			!@content.nil? && !@content.empty? && !@content.gsub(%r{</?[^>]+?>}, '').empty?
  		end
 
 		def empty?

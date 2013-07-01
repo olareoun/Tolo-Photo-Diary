@@ -62,6 +62,10 @@
 				$(this).attr('heigth', '100%');
 			});
 
+			$('.slides a').each(function(){
+				$(this).attr('target', '_blank');
+			});
+
 			var changeTheme = function() {
 				var newtheme = '../css/theme/' + $(this).val() + '.css'
 				$('#reveal-theme').attr('href', newtheme);

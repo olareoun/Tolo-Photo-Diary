@@ -10,6 +10,7 @@ AUDIO_URL = 'https://sandbox.evernote.com/pub/olareoun/audio'
 AUDIOS_URL = 'https://sandbox.evernote.com/pub/olareoun/audios'
 
 NOTEBOOKS = {
+  'notebook with a note and a link' => 'https://sandbox.evernote.com/pub/olareoun/link',
   'non evernote public notebook' => 'wwww.notevernotedomain.com/pub/xaviuzz/tal',
   'empty url' => '',
   'evernote public notebook' => ARRANGE_SANDBOX_URL,
@@ -202,3 +203,8 @@ Then(/^I can see the audios in consecutive vertical slides$/) do
   page.all("div.slides section audio").length.should == 1
 end
 
+Then(/^I can see the link in the content slide$/) do
+  step "presentation has been created"
+  step "I click down button"
+  page.all("div.slides .n2e-slide-content a").length.should == 1
+end
