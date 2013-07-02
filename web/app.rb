@@ -29,6 +29,8 @@ class Web < Sinatra::Base
       redirect '/?alert_signal=' + e.exception_key
     rescue BadPublicNotebookUrlException => e
       redirect '/?alert_signal=' + 'no.evernote.url'
+    rescue NotebookNotFoundException => e
+      redirect '/?alert_signal=' + 'non.existing.notebook'
     end
   end
 

@@ -1,4 +1,3 @@
-@wip
 Feature: links in slide content
   As Victor
   I want to have links in my notes

@@ -21,6 +21,12 @@ Scenario:
     Then I get back to the form
     And I see an alert message "We can not do a presentation with a non evernote public notebook url."
 
+@wip
+Scenario:
+	When I try to create a presentation from a non existing evernote public notebook
+    Then I get back to the form
+    And I see an alert message "Could not find that notebook. Be sure that it exists and it is public."
+
 Scenario: There is a form where i can paste a public notebook URL
 	When I look for a field to insert a public evernote url
 	Then I can see it

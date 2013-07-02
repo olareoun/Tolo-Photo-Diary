@@ -32,6 +32,14 @@ describe "Notes2Reveal Routes" do
       last_request.query_string.should == 'alert_signal=no.evernote.url'
     end
 
+    it "goes to / when non existing notebook" do
+      post "/arrange", "publicUrl" => "https://sandbox.evernote.com/pub/olareoun/non-existing"
+      last_response.should be_redirect
+      follow_redirect!
+      last_request.path_info.should == '/'
+      last_request.query_string.should == 'alert_signal=non.existing.notebook'
+    end
+
 
   end
 

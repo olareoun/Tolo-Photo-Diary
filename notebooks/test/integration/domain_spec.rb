@@ -17,4 +17,7 @@ describe 'Notebooks Domain' do
 		notebook.getName().should == 'mipublicnotebook'
 		notebook.getNotes().length.should == 2
 	end
+	it 'raises a notebook not found exception when non existing notebook' do
+		expect{Notebooks::NotebooksDomain.get('https://sandbox.evernote.com/pub/olareoun/non-existing')}.to raise_error(NotebookNotFoundException)
+	end
 end

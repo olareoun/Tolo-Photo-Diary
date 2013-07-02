@@ -10,6 +10,7 @@ AUDIO_URL = 'https://sandbox.evernote.com/pub/olareoun/audio'
 AUDIOS_URL = 'https://sandbox.evernote.com/pub/olareoun/audios'
 
 NOTEBOOKS = {
+  'non existing evernote public notebook' => 'https://sandbox.evernote.com/pub/olareoun/non-existing',
   'notebook with a note and a link' => 'https://sandbox.evernote.com/pub/olareoun/link',
   'non evernote public notebook' => 'wwww.notevernotedomain.com/pub/xaviuzz/tal',
   'empty url' => '',
