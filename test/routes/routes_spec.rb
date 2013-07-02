@@ -18,26 +18,17 @@ describe "Notes2Reveal Routes" do
 
     it "goes to / when no public url" do
       post "/arrange", "publicUrl" => ""
-      last_response.should be_redirect
-      follow_redirect!
-      last_request.path_info.should == '/'
-      last_request.query_string.should == 'alert_signal=empty.url'
+      last_response.body.include?('We need a public evernote notebook url to make your presentation.')
     end
 
     it "goes to / when bad formed public url" do
       post "/arrange", "publicUrl" => "wwww.notevernotedomain.com/pub/xaviuzz/tal"
-      last_response.should be_redirect
-      follow_redirect!
-      last_request.path_info.should == '/'
-      last_request.query_string.should == 'alert_signal=no.evernote.url'
+      last_response.body.include?('We can not do a presentation with a non evernote public notebook url.')
     end
 
     it "goes to / when non existing notebook" do
       post "/arrange", "publicUrl" => "https://sandbox.evernote.com/pub/olareoun/non-existing"
-      last_response.should be_redirect
-      follow_redirect!
-      last_request.path_info.should == '/'
-      last_request.query_string.should == 'alert_signal=non.existing.notebook'
+      last_response.body.include?('Could not find that notebook. Be sure that it exists and it is public.')
     end
 
 
@@ -47,18 +38,17 @@ describe "Notes2Reveal Routes" do
 
     it "goes to / when no public url" do
       post "/generate", "publicUrl" => ""
-      last_response.should be_redirect
-      follow_redirect!
-      last_request.path_info.should == '/'
-      last_request.query_string.should == 'alert_signal=empty.url'
+      last_response.body.include?('We need a public evernote notebook url to make your presentation.')
     end
 
     it "goes to / when bad formed public url" do
       post "/generate", "publicUrl" => "wwww.notevernotedomain.com/pub/xaviuzz/tal"
-      last_response.should be_redirect
-      follow_redirect!
-      last_request.path_info.should == '/'
-      last_request.query_string.should == 'alert_signal=no.evernote.url'
+      last_response.body.include?('We can not do a presentation with a non evernote public notebook url.')
+    end
+
+    it "goes to / when non existing notebook" do
+      post "/generate", "publicUrl" => "https://sandbox.evernote.com/pub/olareoun/non-existing"
+      last_response.body.include?('Could not find that notebook. Be sure that it exists and it is public.')
     end
 
   end

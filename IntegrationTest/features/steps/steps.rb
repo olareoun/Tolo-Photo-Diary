@@ -97,7 +97,7 @@ Then(/^I should get a presentation with (\d+) horizontal slides$/) do |arg1|
 end
 
 Then(/^I get back to the form$/) do
-  page.current_path.should eq '/'
+  step "I can see it"
 end
 
 Then(/^I see an alert message "(.*?)"$/) do |alert_message|

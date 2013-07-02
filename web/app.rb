@@ -26,11 +26,11 @@ class Web < Sinatra::Base
       @notes = domain.getNotes(@publicUrl)
       erb :arrange , :layout => :home_layout
     rescue BadArgumentException => e
-      redirect '/?alert_signal=' + e.exception_key
+      showError e.exception_key
     rescue BadPublicNotebookUrlException => e
-      redirect '/?alert_signal=' + 'no.evernote.url'
+      showError 'no.evernote.url'
     rescue NotebookNotFoundException => e
-      redirect '/?alert_signal=' + 'non.existing.notebook'
+      showError 'non.existing.notebook'
     end
   end
 
@@ -40,10 +40,17 @@ class Web < Sinatra::Base
       @slides = domain.createSlides(params['publicUrl'], sortedIds)
       erb :presentation , :layout => :reveal_js
     rescue BadArgumentException => e
-      redirect '/?alert_signal=' + e.exception_key
+      showError e.exception_key
     rescue BadPublicNotebookUrlException => e
-      redirect '/?alert_signal=' + 'no.evernote.url'
+      showError 'no.evernote.url'
+    rescue NotebookNotFoundException => e
+      showError 'non.existing.notebook'
     end
+  end
+
+  def showError(messageKey)
+      @message = Notifier.message_for messageKey
+      erb :index , :layout => :home_layout
   end
 
   def getSortedIds(sortedIdsStr)
