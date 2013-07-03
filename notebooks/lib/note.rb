@@ -33,7 +33,14 @@ module Notebooks
 
 		def getContent
 			return '' if @note.content.nil?
-			content = stripEvernoteMarkup(@note.content)
+			content = transformEvernoteTodo(@note.content)
+			content = stripEvernoteMarkup(content)
+			content
+		end
+
+		def transformEvernoteTodo(content)
+			content = content.gsub('</en-todo>', '')
+			content = content.gsub('<en-todo', '<input type="checkbox" class="regular-checkbox big-checkbox"')
 			content
 		end
 

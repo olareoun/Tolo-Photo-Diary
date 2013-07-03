@@ -30,7 +30,6 @@ describe 'Crafty' do
 		html = div do
 			text
 		end
-		puts decoder.decode(html)
 		decoder.decode(html).should == '<div><div><a href="www.google.es">www.google.es</a></div>'
 	end
 

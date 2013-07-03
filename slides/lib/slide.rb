@@ -48,7 +48,7 @@ module Slides
 		def renderContent
 			if hasContent
 				section class: ['n2e-slide-content'] do
-					p do
+					div class: ['container'] do
 						@content
 					end
 				end
