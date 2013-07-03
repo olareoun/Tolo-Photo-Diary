@@ -18,11 +18,12 @@
   <fieldset>
     <label>Public Evernote notebook URL</label>
     <div class="input-append">
-    <input placeholder="http://www.evernote.com/pub/user/notebook" name='publicUrl' id='publicUrl'/>
-    <button type='submit' id="submit" class="btn arrange">
-      <img src='img/arrange.png' alt='Arrange'/>
-    </button>
-    <div>
+      <input placeholder="http://www.evernote.com/pub/user/notebook" name='publicUrl' id='publicUrl'/>
+      <button type='submit' id="submit" class="btn arrange">
+        <div id="imgBtnDiv" width="15px" height="15px"><img src='img/arrange.png' alt='Arrange' id="submitImg"/></div>
+      </button>
+    </div>
+    <div id="loading"></div>
   </fieldset>
 </form>
 
@@ -31,3 +32,13 @@
     Where can i find the URL?
   </a>
 </p>
+
+<script>
+  window.onload = function(){
+    $("#submit").bind('click', function(event){
+      $('#submitImg').css('visibility', 'hidden');
+      $('#imgBtnDiv').spin(APP.spinOpts);
+    });
+
+  };
+</script>
