@@ -38,7 +38,7 @@ git checkout master
 git pull origin master
 git branch -D deploy
 git checkout -b deploy
-minimizejs
+#minimizejs
 git add -f web/public/js/app.js
 git rm -r web/public/js/test
 git commit -m "minified"
