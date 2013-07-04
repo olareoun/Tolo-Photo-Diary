@@ -28,7 +28,7 @@ var correctContentOverflow = function(element, maxheight, mainSlide, aOverflowNo
     var currentOverflowNode;
     while(isHeightOverflow(element, maxheight)){
         currentOverflowNode = currentOverflowNode || getCurrentOverflowNode(element, mainSlide, aOverflowNode);
-        if (element.children().length <= 1){
+        if (element.children().length <= 1 || element[0].tagName == 'TABLE'){
             return correctOrphanElementOverflow(element, maxheight, mainSlide, currentOverflowNode);
         }else{
             var child = element.children().last();
@@ -50,11 +50,27 @@ var getCurrentOverflowNode = function(element, mainSlide, aOverflowNode){
 }
 
 var correctOrphanElementOverflow = function(element, maxheight, mainSlide, aOverflowNode){
+    if (element[0].tagName == 'TABLE'){
+        return correctTableOverflow(element, maxheight, mainSlide, aOverflowNode);
+    }
+
     if (element[0].tagName == 'P' || element[0].tagName == 'LI'){
         return correctParagraphElementOverflow(element, maxheight, mainSlide, aOverflowNode);
     }
     var child = element.children().last();
     return correctContentOverflow(child, maxheight, mainSlide, aOverflowNode);
+};
+
+var correctTableOverflow = function(element, maxheight, mainSlide, aOverflowNode){
+    var theads = element.find('thead');
+    aOverflowNode.append($(theads[0]).clone());
+
+    var tbody = element.find('tbody');
+    while(isHeightOverflow(element, maxheight) && tbody.find('tr').length > 1){
+        aOverflowNode.prepend(tbody.find('tr').last().remove());
+    }
+
+    return;
 };
 
 var correctParagraphElementOverflow = function(element, maxheight, mainSlide, aOverflowNode){

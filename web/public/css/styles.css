@@ -183,3 +183,22 @@ p.lead{
 	font-size: 80px;
 }
 
+.reveal table{
+	border: 2px solid;
+}
+
+.reveal table thead{
+	border: 2px solid;
+}
+
+.reveal table tbody{
+	border: 2px solid;
+}
+
+.reveal table th{
+	border: 2px solid;
+}
+
+.reveal table td{
+	border: 2px solid;
+}
