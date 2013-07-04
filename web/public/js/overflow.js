@@ -26,10 +26,11 @@ var correctContentsOverflow = function(){
 var correctContentOverflow = function(element, maxheight, mainSlide, aOverflowNode){
     element.parent().removeClass("overflow");
     var currentOverflowNode;
-    wrapTextNodes(element);
+    if (shouldWrapTextNodes(element)) wrapTextNodes(element);
     while(isHeightOverflow(element, maxheight)){
         currentOverflowNode = currentOverflowNode || getCurrentOverflowNode(element, mainSlide, aOverflowNode);
-        if (element.children().length <= 1 || element[0].tagName == 'TABLE'){
+        if (hasOverflowProcedure(element)) return applySpecificOverflowMethod(element, maxheight, mainSlide, currentOverflowNode);
+        if (element.children().length <= 1){
             return correctOrphanElementOverflow(element, maxheight, mainSlide, currentOverflowNode);
         }else{
             var child = element.children().last();
@@ -38,27 +39,11 @@ var correctContentOverflow = function(element, maxheight, mainSlide, aOverflowNo
     }
 }
 
-var wrapTextNodes = function(element){
-    element.contents().filter(function() { return this.nodeType == 3; })
-    .wrap('<p></p>')
-    .end()
-    .filter('br')
-    .remove();
+var hasOverflowProcedure = function(element){
+    return element.is('table')|| element.is('p')|| element.is('li')
 }
 
-var getCurrentOverflowNode = function(element, mainSlide, aOverflowNode){
-    if (!aOverflowNode){
-        return getOverflowSectionContainer(mainSlide);
-    }else{
-        var cloned = element.clone();
-        cloned.html("");
-        aOverflowNode.prepend(cloned);
-        aOverflowNode = cloned;
-        return aOverflowNode;
-    }
-}
-
-var correctOrphanElementOverflow = function(element, maxheight, mainSlide, aOverflowNode){
+var applySpecificOverflowMethod = function(element, maxheight, mainSlide, aOverflowNode){
     if (element[0].tagName == 'TABLE'){
         return correctTableOverflow(element, maxheight, mainSlide, aOverflowNode);
     }
@@ -66,6 +51,9 @@ var correctOrphanElementOverflow = function(element, maxheight, mainSlide, aOver
     if (element[0].tagName == 'P' || element[0].tagName == 'LI'){
         return correctParagraphElementOverflow(element, maxheight, mainSlide, aOverflowNode);
     }
+}
+
+var correctOrphanElementOverflow = function(element, maxheight, mainSlide, aOverflowNode){
     var child = element.children().last();
     return correctContentOverflow(child, maxheight, mainSlide, aOverflowNode);
 };
@@ -83,14 +71,15 @@ var correctTableOverflow = function(element, maxheight, mainSlide, aOverflowNode
 };
 
 var correctParagraphElementOverflow = function(element, maxheight, mainSlide, aOverflowNode){
-    var text = element.html();
-    var array = text.split(" ");
-    var subtext = array.slice(0, array.length / 2).join(" ");
-    var tail = array.slice(array.length / 2, array.length).join(" ");
-    element.html(subtext + '...');
-    aOverflowNode.html('...' + tail);
-    aOverflowNode = aOverflowNode.parent();
-    return correctContentOverflow(element, maxheight, mainSlide, aOverflowNode);
+    while (isHeightOverflow(element, maxheight)){
+        var text = element.html();
+        var array = text.split(" ");
+        var subtext = array.slice(0, array.length - 1).join(" ");
+        var tail = array[array.length - 1];
+        element.html(subtext);
+        aOverflowNode.html(tail + " " + aOverflowNode.html());
+    }
+    return;
 }
 
 var isTheContainer = function(element){
@@ -124,6 +113,31 @@ var createOverflowSection = function(){
     var overflowSlide = $('<section></section>');
     overflowSlide.addClass("n2e-slide-content overflow");
     return overflowSlide;
+}
+
+var shouldWrapTextNodes = function(element){
+    return !element.is('p') && !element.is('li');
+}
+
+var wrapTextNodes = function(element){
+    element.contents()
+    .filter(function() { return this.nodeType == 3; })
+    .wrap('<p></p>')
+    .end()
+    .filter('br')
+    .remove();
+}
+
+var getCurrentOverflowNode = function(element, mainSlide, aOverflowNode){
+    if (!aOverflowNode){
+        return getOverflowSectionContainer(mainSlide);
+    }else{
+        var cloned = element.clone();
+        cloned.html("");
+        aOverflowNode.prepend(cloned);
+        aOverflowNode = cloned;
+        return aOverflowNode;
+    }
 }
 
 var isOverflow = function(element, maxheight){
