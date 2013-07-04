@@ -26,6 +26,7 @@ var correctContentsOverflow = function(){
 var correctContentOverflow = function(element, maxheight, mainSlide, aOverflowNode){
     element.parent().removeClass("overflow");
     var currentOverflowNode;
+    wrapTextNodes(element);
     while(isHeightOverflow(element, maxheight)){
         currentOverflowNode = currentOverflowNode || getCurrentOverflowNode(element, mainSlide, aOverflowNode);
         if (element.children().length <= 1 || element[0].tagName == 'TABLE'){
@@ -35,6 +36,14 @@ var correctContentOverflow = function(element, maxheight, mainSlide, aOverflowNo
             currentOverflowNode.prepend(child.remove());
         }
     }
+}
+
+var wrapTextNodes = function(element){
+    element.contents().filter(function() { return this.nodeType == 3; })
+    .wrap('<p></p>')
+    .end()
+    .filter('br')
+    .remove();
 }
 
 var getCurrentOverflowNode = function(element, mainSlide, aOverflowNode){
