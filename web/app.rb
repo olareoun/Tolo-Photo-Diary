@@ -11,6 +11,10 @@ class Web < Sinatra::Base
 
   domain = Notebook2RevealDomain.new
 
+  not_found do
+    erb :'404', :layout => :home_layout
+  end
+
   get '/index.html' do
     erb :index , :layout => :home_layout
   end

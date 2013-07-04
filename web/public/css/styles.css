@@ -74,6 +74,13 @@ label{
 	color: #656959;
 }
 
+div.notfound{
+	font-size: 25px;
+	font-style: italic;
+	font-weight: bold;
+	color: #656959;
+}
+
 .navbar label{
 	text-align: bottom;
 	font-size: 15px;
