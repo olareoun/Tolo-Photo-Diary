@@ -140,14 +140,14 @@ end
 
 Then(/^I can see a list with the titles of my notes$/) do
   page.has_css?("ul").should be_true
-  page.all("ul li").length.should == 4
-  page.find('ul').text.should include('nota1', 'nota2', 'nota3', 'nota4') 
+  page.all("ul#sortable li").length.should == 4
+  page.find('ul#sortable').text.should include('nota1', 'nota2', 'nota3', 'nota4') 
 end
 
 Then(/^I can see a sortable list with the titles of my notes$/) do
   page.has_css?("ul#sortable").should be_true
-  page.all("ul li").length.should == 4
-  page.find('ul').text.should include('nota1', 'nota2', 'nota3', 'nota4') 
+  page.all("ul#sortable li").length.should == 4
+  page.find('ul#sortable').text.should include('nota1', 'nota2', 'nota3', 'nota4') 
   page.evaluate_script("$('#sortable').sortable('toArray').toString()").empty?.should be_false
 end
 
