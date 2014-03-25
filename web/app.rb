@@ -15,6 +15,11 @@ class Web < Sinatra::Base
     erb :'404', :layout => :home_layout
   end
 
+  error do
+    @error = request.env['sinatra_error'].name
+    erb :'500', :layout => home_layout
+  end
+
   get '/index.html' do
     erb :index , :layout => :home_layout
   end
