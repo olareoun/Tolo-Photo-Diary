@@ -21,7 +21,6 @@ Scenario:
     Then I get back to the form
     And I see an alert message "We can not do a presentation with a non evernote public notebook url."
 
-@wip
 Scenario:
 	When I try to create a presentation from a non existing evernote public notebook
     Then I get back to the form
