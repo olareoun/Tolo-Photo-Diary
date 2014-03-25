@@ -31,7 +31,7 @@ class PresentationServices < Sinatra::Base
 
   get '/get' do
     @slides = domain.get params["id"]
-    erb :presentation , :layout => :reveal_js
+    erb :presentation , :layout => :mobile_reveal_js
   end
 
 end
