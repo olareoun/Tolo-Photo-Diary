@@ -23,6 +23,7 @@ class PresentationServices < Sinatra::Base
   end
 
   post '/generate', :provides => :json do
+    p 'generate'
     json_notes = JSON.parse params["notes"]
     @slides = MobileSlides::SlidesDomain.create(json_notes)
     id = domain.save @slides
